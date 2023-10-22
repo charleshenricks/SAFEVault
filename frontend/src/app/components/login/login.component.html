@@ -1,0 +1,16 @@
+<app-header></app-header>
+<div>
+<body>
+    <div class="loginbox">
+        <h1>Login</h1>
+        <!-- Login Form -->
+        <form [formGroup]="loginForm"  (ngSubmit)="submit()">
+            <text-input [control] = "form.email" [showErrorsWhen] = "isSubmitted" type = "email" label = "Email" placeholder="e.g. example@gmail.com"></text-input>
+            <text-input [control] = "form.password" [showErrorsWhen] = "isSubmitted" type = "password" label = "Password" placeholder=""></text-input>
+            <input type="submit" action="/" value="LOGIN">
+            <a routerLink="/register" [queryParams]="{returnUrl : returnUrl}">Don't have an account? Register here</a>
+        </form>
+    </div>
+</body>
+</div>
+

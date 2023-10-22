@@ -1,0 +1,28 @@
+<app-header></app-header>
+
+<body>
+  <div class="loginbox">
+      <h1>Post Found Item</h1>
+      <form [formGroup]="itemForm"  (ngSubmit)="submit()">
+          <text-input [control] = "form.name" [showErrorsWhen] = "isSubmitted" label = "Item Name" placeholder = "e.g. keys, id, wallet"></text-input>
+          <text-input [control] = "form.characteristic" [showErrorsWhen] = "isSubmitted" label = "Characteristic" placeholder = "e.g. blue, small"></text-input>
+          <text-input [control] = "form.loc" [showErrorsWhen] = "isSubmitted" label = "Location Found" placeholder = "e.g. outside CIT gate, Natalio B. Bacalso Ave area"></text-input>
+          <text-input type="date" [control] = "form.date" [showErrorsWhen] = "isSubmitted" label = "Date Found"></text-input>
+          <text-input [control] = "form.more_info" [showErrorsWhen] = "isSubmitted" label = "More Details" placeholder = "Give more specific description"></text-input>
+
+
+          <div class="center">
+            <div class="form-input">
+              <span id="file-chosen">{{imgName}}</span>
+              <label for="file-ip-1">Upload</label>
+              <input #imageInput type="file" id="file-ip-1" accept="image/*" (change)="processFile(imageInput)">
+            </div>
+          </div>
+
+          <input type="submit" name="" value="Post">
+      </form>
+
+
+  </div>
+
+</body>

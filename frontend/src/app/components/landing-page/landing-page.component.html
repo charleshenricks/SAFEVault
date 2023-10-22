@@ -1,0 +1,16 @@
+<header class="header">
+  <div class="brand-box">
+    <span class="brand">C1pher</span>
+  </div>
+  <div class="text-box">
+    <h1 class="heading-primary">
+      <img src="../../../assets/logo.png" height="250" width="250" class="logo">
+      <span class="heading-primary-main">Found Something or Lost Something?</span>
+    </h1>
+    <a routerLink="/found-items" class="btn btn-white btn-animated">Look4Me</a>
+  </div>
+</header>
+<div class="contact-box">
+  <span class="contact">CONTACT US</span>
+  <span class="contactinfo" *ngIf="admin">{{admin.email}}<br>{{admin.contactinfo}}</span>
+</div>

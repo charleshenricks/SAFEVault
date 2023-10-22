@@ -1,0 +1,28 @@
+<app-header></app-header>
+
+<body>
+  <div class="loginbox">
+      <h1>Edit Post</h1>
+      <form [formGroup]="itemForm"  (ngSubmit)="submit()">
+          <text-input [control] = "form.name" [showErrorsWhen] = "isSubmitted" label = "Item Name" placeholder = {{this.item.name}}></text-input>
+          <text-input [control] = "form.characteristic" [showErrorsWhen] = "isSubmitted" label = "Characteristic" placeholder = {{this.item.characteristic}}></text-input>
+          <text-input [control] = "form.loc" [showErrorsWhen] = "isSubmitted" label = "Location Found" placeholder = {{this.item.loc}}></text-input>
+          <text-input type="date" [control] = "form.date" [showErrorsWhen] = "isSubmitted" placeholder = {{this.item.date}} label = "Date Found"></text-input>
+          <text-input [control] = "form.more_info" [showErrorsWhen] = "isSubmitted" label = "More Details" placeholder = {{this.item.more_info}}></text-input>
+
+
+          <div class="center">
+            <div class="form-input">
+              <span id="file-chosen">{{imgName}}</span>
+              <label for="file-ip-1">Upload New Image</label>
+              <input #imageInput type="file" id="file-ip-1" accept="image/*" (change)="processFile(imageInput)">
+            </div>
+          </div>
+
+          <input type="submit" name="" value="Edit">
+      </form>
+
+
+  </div>
+
+</body>

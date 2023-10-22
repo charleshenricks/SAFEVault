@@ -1,0 +1,12 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+  margin:0;
+  padding:0;
+  }
+
+  html {
+    background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(https://media.newyorker.com/photos/59097dcdc14b3c606c1098d4/16:9/w_1581,h_889,c_limit/170213_r29427.jpg);
+    background-size:100%;
+    background-attachment:fixed;
+  }
+

@@ -1,0 +1,45 @@
+<app-header style="position: relative; top: -17px;"></app-header>
+
+<ul>
+  <div class="logo-holder logo-2">
+      <h3>FOUND ITEMS</h3>
+  </div>
+</ul>
+
+<app-search></app-search>
+
+<ul>
+  <li *ngFor="let item of items">
+    <a routerLink="/found-items/info/{{item.id}}">
+      <img [src]="item.img" [alt]="item.name" />
+      <div class="content">
+        <div class="name">
+          {{item.name | uppercase}}
+        </div>
+        <div class="product-item-footer">
+          <div class="info">
+            <span>Characteristic: {{item.characteristic}}</span>
+            <span>Location Found: {{item.loc}}</span>
+            <span>Date Found: {{item.date | date: 'MM/dd/yyyy'}}</span>
+            <span [attr.status]="item.status" class="status">Status:</span>
+          </div>
+        </div>
+      </div>
+    </a>
+  </li>
+  <li class="no-item">
+    <div class="logo-holder logo-2">
+    <h3>No Results</h3>
+    </div>
+  </li>
+  <div class="found" *ngIf="isAuth&&!isAdmin">
+    <button routerLink="/post-found">Post Found Item</button>
+  </div>
+  <div class="found" *ngIf="!isAuth&&!isAdmin">
+    <button routerLink="/login">Post Found Item</button>
+  </div>
+</ul>
+
+
+
+

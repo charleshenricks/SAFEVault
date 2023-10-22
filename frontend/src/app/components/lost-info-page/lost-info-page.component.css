@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+.logo-2 h5 {
+  position: absolute;
+  left: 50%;
+  color: rgba(76, 216, 255);
+  font-family: 'Oswald', sans-serif;
+  font-weight: bolder;
+  font-size: 15px;
+  text-transform: uppercase;
+  line-height:1;
+  background: rgba(10, 93, 121, 0.804);
+  border-radius: .5rem;
+  padding: 8px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+}
+
+.container{
+  font-family: Montserrat, sans-serif;
+  margin: 0;
+  top: 20rem;
+  left: 50%;
+  position: absolute;
+  box-sizing: border-box;
+  transform: translate(-50%,-50%);
+  display: flex;
+  border-radius: 1rem;
+  background: rgb(2, 54, 71);
+  width: 43.05rem;
+  height: 28rem;
+}
+
+img{
+  border-radius: 1rem;
+  object-fit: cover;
+  height: 25rem;
+  width: 25rem;
+  margin: 1rem;
+}
+
+
+.skills {
+	padding: 15px;
+}
+
+
+h1{
+  text-align: center;
+  font-size: 1rem;
+  color: rgba(76, 216, 255);
+  border-top: 2px solid rgba(76, 216, 255);
+	border-radius: 2px;
+  padding: .1rem;
+}
+
+h2{
+  text-align: center;
+  font-size: 1rem;
+  color: rgba(76, 216, 255);
+	border-radius: 2px;
+}
+
+.skills ul {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+  color: rgb(255, 43, 6);
+  font-weight: bold;
+}
+
+.skills ul a{
+	background:rgba(76, 216, 255);
+  color: black;
+  font-weight: bold;
+  text-align: left;
+	border: 1px solid #2D2747;
+	border-radius: 2px;
+	display: inline-block;
+	font-size: 0.7rem;
+	margin: 0 7px 7px 0;
+	padding: .5px;
+  text-decoration: none;
+}
+
+.skills ul li {
+
+  color: rgba(76, 216, 255);
+  font-weight: bold;
+  text-align: left;
+
+	border-radius: 2px;
+	display: inline-block;
+	font-size: 0.7rem;
+	margin: 1px 20px 1px 1px;
+
+}
+
+.found button{
+  font-family: Montserrat, sans-serif;
+  position: absolute;
+  top: 30rem;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  border: .3rem;
+  border-color: #000;
+  outline: none;
+  height: 40px;
+  background: rgb(12, 4, 155);
+  color: white;
+  font-size: 18px;
+  letter-spacing: 1px;
+  border-radius: 6px;
+}
+
+.reject button{
+  font-family: Montserrat, sans-serif;
+  position: absolute;
+  top: 33rem;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  border: .3rem;
+  border-color: #000;
+  outline: none;
+  height: 40px;
+  background: rgb(69, 7, 7);
+  color: white;
+  font-size: 18px;
+  letter-spacing: 1px;
+  border-radius: 6px;
+}
+
+.edit button{
+  font-family: Montserrat, sans-serif;
+  position: absolute;
+  top: 30rem;
+  left: 75%;
+  transform: translate(-50%,-50%);
+  border: .3rem;
+  border-color: #000;
+  outline: none;
+  height: 40px;
+  background: rgb(43, 8, 83);
+  color: white;
+  font-size: 18px;
+  letter-spacing: 1px;
+  border-radius: 6px;
+}
+
+.delete button{
+  font-family: Montserrat, sans-serif;
+  position: absolute;
+  top: 30rem;
+  left: 25%;
+  transform: translate(-50%,-50%);
+  border: .3rem;
+  border-color: #000;
+  outline: none;
+  height: 40px;
+  background: rgb(69, 7, 7);
+  color: white;
+  font-size: 18px;
+  letter-spacing: 1px;
+  border-radius: 6px;
+}
+
+.found button:hover{
+  cursor: pointer;
+  background: rgba(76, 216, 255);
+  color: rgb(0, 0, 0);
+}
+
+.edit button:hover{
+  cursor: pointer;
+  background: rgba(76, 216, 255);
+  color: rgb(0, 0, 0);
+}
+
+.delete button:hover{
+  cursor: pointer;
+  background: rgba(76, 216, 255);
+  color: rgb(2, 54, 71);
+}
+
+.reject button:hover{
+  cursor: pointer;
+  background: rgba(76, 216, 255);
+  color: rgb(2, 54, 71);
+}
+.status[status=false]:after {
+  content : " Item Not Yet Found";
+  color : rgb(43, 211, 74);
+  font-weight: bold;
+ }
+
+ .status[status=true]:after {
+  content : " Item Already Found";
+  color : rgb(244, 58, 80);
+  font-weight: bold;
+ }

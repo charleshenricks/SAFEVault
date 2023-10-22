@@ -1,0 +1,40 @@
+input
+{
+    border: none;
+    border-bottom: 1px solid rgb(21, 191, 221);
+    background: transparent;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    color: rgb(10, 93, 121);
+    font-size: 12px;
+    transition: border-bottom 0.15s ease-out;
+}
+
+input:focus
+{
+    border-width: 2.9px;
+}
+
+input::placeholder
+{
+    border: none;
+    border-bottom: 1px solid #fff;
+    background: transparent;
+    outline: none;
+    height: 40px;
+    color: rgb(10, 93, 121);
+    font-size: 12px;
+}
+
+
+input-validation
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    outline: none;
+    height: 12px;
+    color: rgb(10, 93, 121, 0.1);
+    background: transparent;
+}

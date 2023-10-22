@@ -1,0 +1,21 @@
+<app-header></app-header>
+<body>
+  <div class="loginbox">
+      <h1>Register</h1>
+      <form [formGroup]="registerForm"  (ngSubmit)="submit()">
+          <text-input [control] = "form.Fullname" [showErrorsWhen] = "isSubmitted" label = "Name" placeholder="e.g. John Smith"></text-input>
+          <text-input type = "email" [control] = "form.email" [showErrorsWhen] = "isSubmitted" label = "Email" placeholder="e.g. john@gmail.com"></text-input>
+          <text-input [control] = "form.contactinfo" [showErrorsWhen] = "isSubmitted" label = "Contact Information" placeholder="e.g. cell no., messenger link, facebook acc"></text-input>
+          <text-input type = "password" [control] = "form.password" [showErrorsWhen] = "isSubmitted" label = "Password" placeholder="Must be more than 6 characters"></text-input>
+          <text-input type = "password" [control] = "form.confirmPassword" [showErrorsWhen] = "isSubmitted" label = "Confirm Password" placeholder="Must be more than 6 characters"></text-input>
+
+          <input type="submit" name="" value="REGISTER">
+          <a routerLink="/login" [queryParams]="{returnUrl: returnUrl}">Already have an account? Login</a>
+      </form>
+
+  </div>
+
+</body>
+
+
+

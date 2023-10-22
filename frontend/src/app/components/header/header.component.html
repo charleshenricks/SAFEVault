@@ -1,0 +1,36 @@
+<header>
+  <div class="logo">
+    <img routerLink="/" src="../../../assets/logo.png" height="40px" width="40px">
+  </div>
+  <div class="nav">
+    <ul>
+      <li class="menu-container">
+        <a class="button" routerLink="/lost-items">Lost Items</a>
+        <a class="button" routerLink="/found-items">Found Items</a>
+      </li>
+
+      <li *ngIf="!isAuth">
+        <a routerLink="/login">Login</a>
+      </li>
+
+      <li *ngIf="!isAdmin&&isAuth" class="menu-container">
+        <a>{{Firstname}}</a>
+        <div class="menu">
+          <a >{{Firstname}}</a>
+          <a class="button" routerLink="/profile/{{user.id}}">Account Info</a>
+          <a (click)="logout()" class="button">Logout</a>
+        </div>
+      </li>
+
+      <li *ngIf="isAdmin" class="menu-container">
+        <a>Admin</a>
+        <div class="menu">
+          <a >Admin</a>
+          <a class="button" routerLink="/admin-page/{{user.id}}">Manage</a>
+          <a (click)="logout()" class="button">Logout</a>
+        </div>
+      </li>
+
+    </ul>
+  </div>
+</header>

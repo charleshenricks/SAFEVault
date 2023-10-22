@@ -1,0 +1,117 @@
+body{
+  margin: 0;
+  padding: 10;
+  background: rgba(63, 33, 33, 0.227);
+  background-size: cover;
+  background-position: center;
+  font-family: sans-serif;
+}
+
+.loginbox{
+  width: 25rem;
+  background: rgba(76, 216, 255, 0.97);
+  color: rgb(10, 93, 121);
+  top: 400px;
+  left: 50%;
+  position: relative;
+  transform: translate(-50%,-50%);
+  box-sizing: border-box;
+  padding: 30px 30px;
+  border-radius: 20px;
+}
+
+h1{
+  margin: 0;
+  padding: 0 0 40px;
+  text-align: center;
+  font-size: 22px;
+}
+
+.loginbox input{
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+
+.loginbox input[type="submit"]
+{
+  border: none;
+  outline: none;
+  height: 40px;
+  color: #fff;
+  font-size: 18px;
+  letter-spacing: 1px;
+  border-radius: 20px;
+  background: rgb(10, 93, 121);
+}
+
+.loginbox input[type="submit"]:hover
+{
+  cursor: pointer;
+  background: #ffc107;
+  color: #000;
+}
+
+.loginbox a{
+  text-decoration: none;
+  font-size: 12px;
+  line-height: 20px;
+  color: white;
+  margin-left:15%;
+  margin-right:10%;
+}
+
+.loginbox a:hover
+{
+  color: #ffc107;
+}
+
+
+.center {
+  height:100%;
+  display:flex;
+  align-items:center;
+
+}
+.form-input {
+  width:350px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background:transparent;
+}
+
+.form-input label:hover{
+  color: #000;
+  background: #ffc107;
+}
+
+.form-input input {
+  display:none;
+}
+.form-input label {
+  display:block;
+  width:40%;
+  height:30px;
+  line-height:30px;
+  text-align:center;
+  background:rgb(10, 93, 121);
+
+  color:#fff;
+  font-size:.7rem;
+  font-family:"Open Sans",sans-serif;
+  text-transform:Uppercase;
+  font-weight:600;
+  border-radius:5px;
+  cursor:pointer;
+}
+
+.form-input img {
+  width:100%;
+  display:none;
+
+  margin-bottom:30px;
+}
+
+span{
+  align-items: center;
+}

@@ -1,0 +1,95 @@
+<app-header></app-header>
+<body>
+  <div class="logo-2"><h5>
+    Lost Item
+  </h5></div>
+  <div  class="container">
+
+    <img [src]="item.img" [alt]="item.name"/>
+    <div class="skills">
+      <h2>{{item.name}}</h2>
+      <ul>
+        <li>Characteristic: {{item.characteristic}}</li>
+        <li>Location Lost: {{item.loc}}</li>
+        <li>Date Lost: {{item.date| date: 'MM/dd/yyyy'}}</li>
+        <li>More Info: {{item.more_info}}</li>
+        <li [attr.status]="item.status" class="status">Status:</li>
+      </ul>
+      <div *ngIf="!isPoster">
+        <h1 >Poster Info</h1>
+        <ul *ngIf="accessClaim;else other_content">
+          <li>Name: {{item.poster_name}}</li>
+          <li>Email: {{item.poster_email}}</li>
+          <li>Contact Info: {{item.poster_contactinfo}}</li>
+        </ul>
+        <ng-template #other_content>
+          <ul *ngIf="!isAuth;else other_false">Please Login to Return Item and Display Poster Info</ul>
+        </ng-template>
+        <ng-template #other_false>
+          <ul *ngIf="item.status;else other_content2">Already Returned</ul>
+        </ng-template>
+        <ng-template #other_content2>
+          <ul *ngIf="!alreadyClaimed;else other_content3">Return Item to Show Poster Information</ul>
+        </ng-template>
+        <ng-template #other_content3>
+          <ul>Returning Item in Progress. Can't Return and Show Poster Info at the Moment</ul>
+        </ng-template>
+      </div>
+      <div *ngIf="isPoster">
+        <h1>Request Info</h1>
+        <ul *ngIf="item.retriever_id;else other_content">
+          <li>Name: {{item.retriever_name}}</li>
+          <li>Email: {{item.retriever_email}}</li>
+          <li>Contact Info: {{item.retriever_contactinfo}}</li>
+          <li>Date Requested: {{item.retriever_date}}</li>
+        </ul>
+        <ng-template #other_content>
+          <ul>No Request</ul>
+        </ng-template>
+      </div>
+      <div>
+        <h1>Finder Info</h1>
+        <ul *ngIf="item.status;else other_content4">
+          <li>Name: {{item.returned_name}}</li>
+          <li>Email: {{item.returned_email}}</li>
+          <li>Contact Info: {{item.returned_contactinfo}}</li>
+          <li>Date Returned: {{item.returned_date}}</li>
+        </ul>
+        <ng-template #other_content4>
+          <ul>Item Not Yet Found</ul>
+        </ng-template>
+      </div>
+    </div>
+    <div class="found">
+      <button (click)="isClaimed()" *ngIf="item.status&&!accessOwner&&!isPoster&&!accessClaim; else claim">Request Change</button>
+    </div>
+    <ng-template #claim>
+      <div class="found">
+        <button (click)="isClaimed()" *ngIf="!item.status&&!isPoster&&!alreadyClaimed&&isAuth">Return Item</button>
+      </div>
+    </ng-template>
+    <div class="found">
+      <button (click)="reqChange(item)" *ngIf="alreadyClaimed&&isPoster&&alreadyReturned ; else req" >Change Finder</button>
+    </div>
+    <ng-template #req>
+      <div class="found">
+        <button (click)="reqApprove(item)" *ngIf="isPoster&&alreadyClaimed">Approve</button>
+      </div>
+    </ng-template>
+    <div class="reject">
+      <button (click)="reqDeny(item)" *ngIf="alreadyClaimed&&isPoster&&alreadyReturned ; else deny" >Reject</button>
+    </div>
+    <ng-template #deny>
+      <div class="reject">
+        <button (click)="reqDeny(item)" *ngIf="alreadyClaimed&&isPoster">Reject</button>
+      </div>
+    </ng-template>
+    <div class="edit" *ngIf="isPoster">
+      <button routerLink="./edit-lost">Edit Post</button>
+    </div>
+    <div class="delete" *ngIf="isAdmin">
+      <button (click)="postDelete()">Delete Post</button>
+    </div>
+  </div>
+
+</body>

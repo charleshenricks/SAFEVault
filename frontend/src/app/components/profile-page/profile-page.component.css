@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
+
+* {
+    font-family: 'Quicksand', sans-serif;
+}
+
+th{
+    text-align: center;
+}
+
+td{
+    text-align: center;
+}
+
+.res-table {
+    border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    font-size: 1em;
+    min-width: 70vw;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.res-table thead tr{
+    text-align: left;
+    background-color: rgb(2, 54, 71);
+    color: white;
+    font-weight: bold;
+}
+
+.res-table th,
+.res-table td {
+    padding: 12px 15px;
+}
+
+.res-table tbody tr {
+    border-bottom: 1px solid lightgray;
+}
+
+.res-table tbody tr:nth-of-type(odd){
+    background-color: rgba(76, 216, 255, 0.904);
+}
+
+.res-table tbody tr:nth-of-type(even){
+    background-color: rgb(10, 93, 121, 0.904);
+    color: aliceblue;
+}
+
+.res-table tbody tr:last-of-type{
+    border-bottom: 2px solid rgb(43, 11, 80);
+}
+
+img {
+  display: block;
+  margin:0 auto;
+  max-height: 100px;
+}
+
+h2 {
+    margin-top: 5rem;
+    font-size: 2.5em;
+    color: rgba(76, 216, 255);
+    font-family: 'Oswald', sans-serif;
+    font-weight: bolder;
+    font-size: 25px;
+    text-transform: uppercase;
+    line-height:1;
+    text-align: center;
+    padding: 8px;
+    margin-bottom: 40px;
+}
+
+button:hover,
+button:focus {
+    background: rgb(43, 11, 80);
+    color: white;
+    outline: 1px solid #fff;
+    outline-offset: -4px;
+}
+
+button:active {
+    transform: scale(0.99);
+}
+
+.clear{
+    margin: 2rem;
+}
+
+button {
+  padding: 3px 7px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+  border-radius: 6px;
+  border: none;
+  margin: 1px;
+  background: linear-gradient(180deg, rgb(146, 91, 209) 0%, #367AF6 100%);
+   background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 208, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  font-weight: bold;
+}
+
+.button-10:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(8, 224, 244, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+
+a{
+    color: rgb(119, 13, 29);
+    font-weight: bold;
+}
+
+div{
+    text-align: center;
+  }

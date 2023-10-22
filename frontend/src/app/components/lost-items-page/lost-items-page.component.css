@@ -1,0 +1,192 @@
+ul{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  list-style-type: none;
+  padding-top: 5px;
+}
+
+li a{
+  height: 24.5rem;
+  width: 20rem;
+  border: 1px solid whitesmoke;
+  border-radius: 1rem;
+  margin: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: rgba(76, 216, 255);
+  background-color: rgb(10, 93, 121);
+  text-decoration: none;
+}
+
+.name{
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+li a:hover{
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+li a img{
+  margin-top: 2rem;
+  object-fit: cover;
+  height: 14.5rem;
+}
+
+.content{
+  margin-top: 0.1rem;
+  padding: 0.5rem 1rem;
+  position: relative;
+  height: 7rem;
+}
+
+
+.product-item-footer{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.info{
+  flex: 9;
+}
+
+.info span{
+  border-radius: 2rem;
+  background-color: rgba(76, 216, 255);
+  display: inline-block;
+  font-size: 0.8rem;
+  color: black;
+  margin-right: 0.3rem;
+  padding: 0 0.5rem;
+  margin-top: 0.2rem;
+  font-weight: 100;
+}
+
+div{
+  text-align: center;
+}
+
+button:hover,
+button:focus {
+    color: white;
+    outline: 1px solid #fff;
+    outline-offset: -4px;
+}
+
+button:active {
+    transform: scale(0.99);
+}
+
+
+button {
+  padding: 6px 14px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+  border-radius: 6px;
+  border: none;
+  margin: 1px;
+  margin-bottom: 10px;
+
+  color: #fff;
+  background: linear-gradient(180deg, rgb(43, 11, 80) 0%, #0f306e 100%);
+   background-origin: border-box;
+  box-shadow: 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-10:focus {
+  box-shadow: inset 0px 0.8px 0px -0.25px rgba(255, 255, 255, 0.2), 0px 0.5px 1.5px rgba(54, 122, 246, 0.25), 0px 0px 0px 3.5px rgba(58, 108, 217, 0.5);
+  outline: 0;
+}
+
+
+h2{
+  margin:0px;
+  padding:0px;
+}
+.logo-container ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display:inline-block;
+  text-decoration:none;
+}
+.logo-container ul li {
+    width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    float: left;
+    box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  text-decoration:none;
+}
+.logo-container ul li a{
+  text-decoration:none;
+  display: inline-block;
+}
+.logo-holder{
+  text-align:center;
+  text-decoration:none;
+}
+/* Logo-2 */
+.logo-2 h3 {
+    color: rgba(76, 216, 255);
+    font-family: 'Oswald', sans-serif;
+    font-weight: bolder;
+    font-size: 25px;
+    text-transform: uppercase;
+    line-height:1;
+    background: rgba(10, 93, 121, 0.804);
+    border-radius: 1rem;
+    padding: 8px;
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+
+.no-item:not(:first-child) {
+  display:none;
+}
+
+.status[status=false]:after {
+  content : " Item Not Yet Found";
+  color : rgb(12, 4, 155);
+  font-weight: bold;
+ }
+
+ .status[status=true]:after {
+  content : " Item Already Found";
+  color : rgb(233, 24, 49);
+  font-weight: bold;
+ }
+
+ .found button{
+  font-family: Montserrat, sans-serif;
+  position: absolute;
+  top: 165px;
+  left: 51%;
+  transform: translate(-50%,-50%);
+  border: 1rem;
+  border-color: rgba(76, 216, 255);
+  border-width: thick;
+  outline: none;
+  height: 40px;
+  background: rgb(7, 16, 193);
+  color: white;
+  font-size: 18px;
+  letter-spacing: 1px;
+  border-radius: 6px;
+}
+
+.found button:hover{
+  cursor: pointer;
+  background: rgba(76, 216, 255);
+  color: rgb(0, 0, 0);
+}

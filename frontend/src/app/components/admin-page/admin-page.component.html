@@ -1,0 +1,266 @@
+<app-header style="position: fixed; top: 0px;"></app-header>
+
+<div>
+  <h2 >Profile</h2>
+  <table class='res-table'>
+      <thead>
+      <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Contact Info</th>
+          <th>Password</th>
+          <th>Manage</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngIf="edit">
+          <td> {{admin.Fullname}}
+          </td>
+          <td> {{admin.email}}
+          </td>
+          <td> {{admin.contactinfo}}
+          </td>
+          <td>
+            *************
+          </td>
+          <td>
+            <button (click)="EditAdmin()"  style="color: rgb(255, 255, 255);">
+              Edit
+            </button>
+          </td>
+      </tr>
+
+      <tr *ngIf="!edit">
+
+          <td>
+            <form [formGroup]="editForm"  (ngSubmit)="Save()">
+              <input type="text" formControlName="Fullname"> <br>
+            </form>
+          </td>
+          <td>
+            <form [formGroup]="editForm"  (ngSubmit)="Save()">
+              <input type="text" formControlName="email"> <br>
+            </form>
+          </td>
+          <td>
+            <form [formGroup]="editForm"  (ngSubmit)="Save()">
+              <input type="text" formControlName="contactinfo" > <br>
+            </form>
+          </td>
+          <td>
+            <form [formGroup]="editForm"  (ngSubmit)="Save()">
+              <input type="text" formControlName="password" placeholder="Enter New Password"> <br>
+            </form>
+          </td>
+          <td>
+            <button (click)="EditAdmin()"  style="color: rgb(255, 255, 255);">
+              Cancel
+            </button>
+            <button (click)="Save()"  style="color: rgb(255, 255, 255);">
+              Save
+            </button>
+          </td>
+      </tr>
+      </tbody>
+  </table>
+</div>
+
+<div>
+<h2 >Users</h2>
+<button (click)="togglehideUser()" style="color: greenyellow;">
+  Toggle
+</button>
+  <table class='res-table' *ngIf="hideUser">
+      <thead>
+      <tr>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Contact Info</th>
+          <th>Password</th>
+          <th>Manage</th>
+      </tr>
+      </thead>
+  <tbody>
+    <ng-container *ngFor="let userForm of userForms; let i = index">
+      <tr *ngIf="Edittoggle[i]">
+        <td>{{userForm.value.Fullname}}</td>
+        <td>{{userForm.value.email}}</td>
+        <td>{{userForm.value.contactinfo}}</td>
+        <td>*************</td>
+        <td>
+          <button (click)="Edit(i)" style="color: rgb(255, 255, 255);">Edit</button>
+          <button (click)="deleteUser(i)" style="color: rgb(239, 40, 40);">Delete</button>
+        </td>
+      </tr>
+      <tr *ngIf="!Edittoggle[i]">
+        <td>
+          <form [formGroup]="userForm"  (ngSubmit)="onSubmit(userForm, i)">
+            <input type="text" formControlName="Fullname"> <br>
+          </form>
+        </td>
+        <td>
+          <form [formGroup]="userForm"  (ngSubmit)="onSubmit(userForm, i)">
+            <input type="text" formControlName="email"> <br>
+          </form>
+        </td>
+        <td>
+          <form [formGroup]="userForm"  (ngSubmit)="onSubmit(userForm, i)">
+            <input type="text" formControlName="contactinfo"> <br>
+          </form>
+        </td>
+        <td>
+          <form [formGroup]="userForm"  (ngSubmit)="onSubmit(userForm, i)">
+            <input type="text" placeholder="New Password" formControlName="password"> <br>
+          </form>
+        </td>
+        <td>
+          <button (click)="Edit(i)"  style="color: rgb(255, 255, 255);">
+            Cancel
+          </button>
+          <button (click)="onSubmit(userForm, i)"  style="color: rgb(255, 255, 255);">
+            Save
+          </button>
+        </td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+  <button *ngIf="users && users.length" (click)="deleteAllUsers()"  style="color: rgb(239, 40, 40);">
+    Delete All Users
+  </button>
+</div>
+
+<div>
+  <h2 >Posts</h2>
+  <button (click)="togglehidePost()" style="color: greenyellow;">
+    Toggle
+  </button>
+  <table class='res-table' *ngIf="hidePost">
+      <thead>
+      <tr>
+          <th>Last Update</th>
+          <th>Type</th>
+          <th>Item</th>
+          <th>Item Name</th>
+          <th>Poster Info</th>
+          <th>Status</th>
+          <th>Owner/Finder</th>
+          <th>Request</th>
+          <th>Manage Request</th>
+          <th>Manage</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor='let post of posts'>
+
+          <td *ngIf="(post.returned_date) ;else reqdate">{{post.returned_date}}</td>
+          <ng-template #reqdate>
+            <td *ngIf="(post.retriever_date) ;else postdate">{{post.retriever_date}}</td>
+          </ng-template>
+          <ng-template #postdate>
+            <td>{{post.date}}</td>
+          </ng-template>
+
+          <ng-template #postdate>
+            <td>{{post.date| date: 'MM/dd/yyyy'}}</td>
+          </ng-template>
+          <td *ngIf="(post.type) ;else lost">Found</td>
+          <ng-template #lost>
+            <td>Lost</td>
+          </ng-template>
+          <td>
+            <img (click)="Navigate(post.id, post.type)" src="{{post.img}}" title="{{post.name}}">
+          </td>
+          <td (click)="Navigate(post.id, post.type)">{{ post.name }}</td>
+          <td> {{post.poster_name}} <br> {{post.poster_email}} <br> {{post.poster_contactinfo}} </td>
+          <td *ngIf="post.status;else False">Already Returned</td>
+          <ng-template #False>
+            <td>Not Yet Returned</td>
+          </ng-template>
+          <td *ngIf="post.status;else False">  {{post.returned_name}} <br> {{ post.returned_email }} <br> {{ post.returned_contactinfo }}</td>
+          <td *ngIf="post.retriever_id;else True2"> {{post.retriever_name}} <br> {{ post.retriever_email }} <br> {{ post.retriever_contactinfo }}</td>
+          <ng-template #True2>
+            <td>No Request</td>
+          </ng-template>
+          <td *ngIf="(!post.status)&&(post.retriever_name);else Change">
+            <div>
+              <button (click)="reqApprove(post)" style="color: greenyellow;">
+                  Approve
+              </button>
+              <button (click)="reqDeny(post)" style="color: rgb(238, 48, 30);">
+                  Reject
+              </button>
+          </div>
+          </td>
+          <ng-template #Change>
+            <td *ngIf="post.retriever_name;else True2">
+              <div>
+                <button (click)="reqDeny(post)" style="color: rgb(238, 48, 30);">
+                  Reject
+              </button>
+                <button (click)="reqChange(post)" style="color: rgb(123, 208, 241);">
+                    Change
+                </button>
+            </div>
+            </td>
+          </ng-template>
+          <td>
+            <button *ngIf="post.type ;else editLost" routerLink="/found-items/info/{{post.id}}/edit-found" style="color: rgb(255, 255, 255);">
+                Edit
+            </button>
+            <ng-template #editLost>
+              <button *ngIf="!post.type ;else editLost" routerLink="/lost-items/info/{{post.id}}/edit-lost" style="color: rgb(255, 255, 255);">
+                Edit
+            </button>
+            </ng-template>
+            <button style="color: rgb(235, 34, 34);" (click)="postDelete(post.id)" >
+              Delete
+          </button>
+          </td>
+      </tr>
+      </tbody>
+  </table>
+  <button *ngIf="posts && posts.length" (click)="postDeleteAll()"  style="color: rgb(239, 40, 40);">
+    Delete All Posts
+  </button>
+</div>
+
+<div>
+  <h2 >Requests</h2>
+  <table class='res-table'>
+      <thead>
+      <tr>
+          <th>Last Update</th>
+          <th>Type</th>
+          <th>Item</th>
+          <th>Item Name</th>
+          <th>Poster Info</th>
+          <th>Status</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor='let request of requests '>
+          <td *ngIf="(request.returned_date) ;else reqdate">{{request.returned_date}}</td>
+          <ng-template #reqdate>
+            <td>{{request.retriever_date}}</td>
+          </ng-template>
+          <td *ngIf="(request.type) ;else lost">Found</td>
+          <ng-template #lost>
+            <td>Lost</td>
+          </ng-template>
+          <td>
+            <img (click)="Navigate(request.id, request.type)" src="{{request.img}}" title="{{request.name}}">
+          </td>
+          <td (click)="Navigate(request.id, request.type)">{{ request.name }}</td>
+          <td *ngIf="request.poster_name.length>0 ;else Noinfo">{{ request.poster_name }} <br> {{ request.poster_email }} <br> {{ request.poster_contactinfo }}</td>
+          <ng-template #Noinfo>
+            <td>Rejected</td>
+          </ng-template>
+          <td *ngIf="request.status;else False">Successfully Returned</td>
+          <ng-template #False>
+            <td>Pending</td>
+          </ng-template>
+      </tr>
+      </tbody>
+  </table>
+</div>
