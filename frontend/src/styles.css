@@ -1,5 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
-body{
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* body{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+/* body{
   margin:0;
   padding:0;
   }
@@ -8,5 +19,5 @@ body{
     background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)),url(https://media.newyorker.com/photos/59097dcdc14b3c606c1098d4/16:9/w_1581,h_889,c_limit/170213_r29427.jpg);
     background-size:100%;
     background-attachment:fixed;
-  }
+  } */
 

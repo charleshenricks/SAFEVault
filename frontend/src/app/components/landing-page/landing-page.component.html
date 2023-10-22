@@ -1,4 +1,4 @@
-<header class="header">
+<!-- <header class="header">
   <div class="brand-box">
     <span class="brand">SAFEVault</span>
   </div>
@@ -13,4 +13,30 @@
 <div class="contact-box">
   <span class="contact">CONTACT US</span>
   <span class="contactinfo" *ngIf="admin">{{admin.email}}<br>{{admin.contactinfo}}</span>
-</div>
+</div> -->
+<section class="main-container">
+  <!-- Header safe vault -->
+  <!-- right in wide screen top on narrow screen -->
+  <div class="header-safevault">
+    <h1 class="app-title">
+      <span class="detail-smibold">SAFE</span><span class="detail-regular">Vault</span>
+    </h1>
+    <div class="app-tagline">
+      <span class="detail-smibold1">Secure</span> and <span class="detail-smibold1">Fast</span>
+    </div>
+    <div class="app-tagline1">
+      Electronic Vault
+    </div>
+    <div class="app-tagline2">
+      Redefining Lost and Found System
+    </div>
+    <!-- Get started -->
+    <div routerLink="/found-items" class="get-started-btn">
+      Get Started
+    </div>
+    <!-- End of Get started -->
+  </div>
+  <!-- end of safe vault -->
+  
+  <img src="../../../assets/SafeVaultLogo.svg" alt="SAFEVault Logo" class="svg-logo">
+</section>
