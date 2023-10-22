@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
     return this.user.token;
   }
   get isAdmin(){
-    return (this.user.id==="642d959eb62173ebc88f3447");
+    return (this.user.id==="6535010718dcee614802f3a3");
   }
 }
 

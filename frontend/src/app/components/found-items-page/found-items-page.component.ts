@@ -38,7 +38,7 @@ export class FoundItemsPageComponent{
   }
 
   get isAdmin(){
-    return ("642d959eb62173ebc88f3447"===this.user.id);
+    return ("6535010718dcee614802f3a3"===this.user.id);
   }
 
   get isAuth(){
