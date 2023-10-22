@@ -7,7 +7,7 @@
     height:40px;
     width:100%;
     position:fixed;
-    background: rgb(10, 93, 121);
+    background: #830A0A;
     z-index:120;
   }
 
@@ -49,12 +49,12 @@
   }
 
   .menu-container:hover .menu{
-    background: rgb(10, 93, 121);
+    background: #830A0A;
     display: block;
   }
 
   .button:hover {
-    background: rgba(76, 216, 255, 0.8);
+    background: #551212;
     display: block;
   }
 

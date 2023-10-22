@@ -1,3 +1,10 @@
+
+
+*{
+   font-family: 'Poppins', sans-serif;
+}
+
+
 ul{
   display: flex;
   justify-content: center;
@@ -5,19 +12,19 @@ ul{
   flex-wrap: wrap;
   list-style-type: none;
   padding-top: 5px;
+  
 }
 
 li a{
-  height: 24.5rem;
+  height: 28rem;
   width: 20rem;
-  border: 1px solid whitesmoke;
   border-radius: 1rem;
   margin: 0.5rem;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  color: rgba(76, 216, 255);
-  background-color: rgb(10, 93, 121);
+  color: #830A0A;
+  background-color: #D9D9D9;
   text-decoration: none;
 }
 
@@ -57,14 +64,17 @@ li a img{
 
 .info span{
   border-radius: 2rem;
-  background-color: rgba(76, 216, 255);
-  display: inline-block;
+  display: inline-flex;
   font-size: 0.8rem;
   color: black;
   margin-right: 0.3rem;
-  padding: 0 0.5rem;
+  padding: 0 0.5rem 0.5rem;
   margin-top: 0.2rem;
   font-weight: 100;
+}
+
+.item-details {
+  color: #830A0A;
 }
 
 div{
@@ -138,13 +148,12 @@ h2{
 }
 /* Logo-2 */
 .logo-2 h3 {
-    color: rgba(76, 216, 255);
+    color: white;
     font-family: 'Oswald', sans-serif;
     font-weight: bolder;
     font-size: 25px;
     text-transform: uppercase;
     line-height:1;
-    background: rgba(10, 93, 121, 0.804);
     border-radius: 1rem;
     padding: 8px;
     margin-top: 60px;
@@ -157,13 +166,13 @@ h2{
 
 .status[status=false]:after {
   content : " Item Not Yet Retrieved";
-  color : rgb(12, 4, 155);
+  color : #EF7070;
   font-weight: bold;
  }
 
  .status[status=true]:after {
   content : " Item Already Retrieved";
-  color : rgb(215, 22, 157);
+  color : #1B830A;
   font-weight: bold;
  }
 
@@ -174,11 +183,11 @@ h2{
   left: 51%;
   transform: translate(-50%,-50%);
   border: 1rem;
-  border-color: rgba(76, 216, 255);
+  border-color: #EF7070;
   border-width: thick;
   outline: none;
   height: 40px;
-  background: rgb(7, 16, 193);
+  background: #830A0A;
   color: white;
   font-size: 18px;
   letter-spacing: 1px;
@@ -187,6 +196,6 @@ h2{
 
 .found button:hover{
   cursor: pointer;
-  background: rgba(76, 216, 255);
+  background: #EF7070;
   color: rgb(0, 0, 0);
 }
