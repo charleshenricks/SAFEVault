@@ -1,23 +1,22 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat');
+*{
+  font-family: 'Poppins', sans-serif;
+}
 
 .logo-2 h5 {
   position: absolute;
   left: 50%;
-  color: rgba(76, 216, 255);
+  color: black;
   font-family: 'Oswald', sans-serif;
   font-weight: bolder;
   font-size: 15px;
   text-transform: uppercase;
   line-height:1;
-  background: rgba(10, 93, 121, 0.804);
   border-radius: .5rem;
   padding: 8px;
   margin-top: 60px;
   margin-bottom: 60px;
 }
-
 .container{
-  font-family: Montserrat, sans-serif;
   margin: 0;
   top: 20rem;
   left: 50%;
@@ -26,9 +25,9 @@
   transform: translate(-50%,-50%);
   display: flex;
   border-radius: 1rem;
-  background: rgb(2, 54, 71);
+  background: #D9D9D9;
   width: 43.05rem;
-  height: 28rem;
+  height: 28.3rem;
 }
 
 img{
@@ -41,14 +40,15 @@ img{
 
 
 .skills {
-	padding: 15px;
+	padding-top: 0.1rem;
+  
 }
 
 
 h1{
   text-align: center;
   font-size: 1rem;
-  color: rgba(76, 216, 255);
+  color: #830A0A;
   border-top: 2px solid rgba(76, 216, 255);
 	border-radius: 2px;
   padding: .1rem;
@@ -57,8 +57,9 @@ h1{
 h2{
   text-align: center;
   font-size: 1rem;
-  color: rgba(76, 216, 255);
+  color: #830A0A;
 	border-radius: 2px;
+  padding: .1rem;
 }
 
 .skills ul {
@@ -70,7 +71,7 @@ h2{
 }
 
 .skills ul a{
-	background:rgba(76, 216, 255);
+	background:#830A0A;
   color: black;
   font-weight: bold;
   text-align: left;
@@ -85,9 +86,9 @@ h2{
 
 .skills ul li {
 
-  color: rgba(76, 216, 255);
+  color: black;
   font-weight: bold;
-  text-align: left;
+
 
 	border-radius: 2px;
 	display: inline-block;
@@ -157,7 +158,7 @@ h2{
   border-color: #000;
   outline: none;
   height: 40px;
-  background: rgb(69, 7, 7);
+  background: #830A0A;
   color: white;
   font-size: 18px;
   letter-spacing: 1px;
@@ -172,13 +173,13 @@ h2{
 
 .edit button:hover{
   cursor: pointer;
-  background: rgba(76, 216, 255);
+  background: #6F77C2;
   color: rgb(0, 0, 0);
 }
 
 .delete button:hover{
   cursor: pointer;
-  background: rgba(76, 216, 255);
+  background: #EF7070;
   color: rgb(2, 54, 71);
 }
 
@@ -187,14 +188,16 @@ h2{
   background: rgba(76, 216, 255);
   color: rgb(2, 54, 71);
 }
+
 .status[status=false]:after {
-  content : " Item Not Yet Found";
+  content : " Not Yet Retrieved";
   color : rgb(43, 211, 74);
   font-weight: bold;
  }
 
  .status[status=true]:after {
-  content : " Item Already Found";
+  content : " Already Retrieved";
   color : rgb(244, 58, 80);
   font-weight: bold;
  }
+

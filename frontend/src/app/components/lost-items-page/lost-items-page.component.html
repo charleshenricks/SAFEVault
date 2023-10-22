@@ -18,9 +18,9 @@
         </div>
         <div class="product-item-footer">
           <div class="info">
-            <span>Characteristic: {{item.characteristic}}</span>
-            <span>Location Lost: {{item.loc}}</span>
-            <span>Date Lost: {{item.date | date: 'MM/dd/yyyy'}}</span>
+            <span>Characteristic: <div class = "item-details"> <strong> {{item.characteristic}} </strong> </div> </span>
+            <span>Location Found: <div class = "item-details"> <strong> {{item.loc}} </strong> </div> </span>
+            <span>Date Found: <div class = "item-details"> <strong> {{item.date | date: 'MM/dd/yyyy'}} </strong> </div> </span>
             <span [attr.status]="item.status" class="status">Status:</span>
           </div>
         </div>

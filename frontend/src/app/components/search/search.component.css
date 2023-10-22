@@ -41,4 +41,10 @@ button:focus {
 }
 
 
+@media (min-width: 900){
+  .container {
+    width: 10%;
+  }
+}
+
 

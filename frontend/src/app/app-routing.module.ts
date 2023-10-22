@@ -16,21 +16,21 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  {path : '', title: 'LOOK4ME', component : LandingPageComponent},
-  {path : 'login',title: 'LOOK4ME:Login',  component : LoginComponent},
-  {path : 'register',title: 'LOOK4ME:Register',  component : RegisterComponent},
-  {path : 'post-found',title: 'LOOK4ME:Post',  component : PostFoundPageComponent},
-  {path : 'post-lost',title: 'LOOK4ME:Post',  component : PostLostPageComponent},
-  {path : 'found-items',title: 'LOOK4ME:Found',  component : FoundItemsPageComponent},
-  {path : 'lost-items',title: 'LOOK4ME:Lost',  component : LostItemsPageComponent},
-  {path : 'found-items/:searchTerm',title: 'LOOK4ME:Found',  component : FoundItemsPageComponent},
-  {path : 'lost-items/:searchTerm',title: 'LOOK4ME:Lost',  component : LostItemsPageComponent},
-  {path : 'lost-items/info/:itemID',title: 'LOOK4ME:LostInfo',  component : LostInfoPageComponent},
-  {path : 'found-items/info/:itemID',title: 'LOOK4ME:FoundInfo',  component : FoundInfoPageComponent},
-  {path : 'found-items/info/:itemID/edit-found',title: 'LOOK4ME:Edit',  component : EditFoundComponent},
-  {path : 'lost-items/info/:itemID/edit-lost',title: 'LOOK4ME:Edit',  component : EditLostComponent},
-  {path : 'profile/:id',title: 'LOOK4ME:Profile',  component : ProfilePageComponent},
-  {path : 'admin-page/:id',title: 'LOOK4ME:Admin',  component : AdminPageComponent},
+  {path : '', title: 'SAFEVault', component : LandingPageComponent},
+  {path : 'login',title: 'SAFEVault:Login',  component : LoginComponent},
+  {path : 'register',title: 'SAFEVault:Register',  component : RegisterComponent},
+  {path : 'post-found',title: 'SAFEVault:Post',  component : PostFoundPageComponent},
+  {path : 'post-lost',title: 'SAFEVault:Post',  component : PostLostPageComponent},
+  {path : 'found-items',title: 'SAFEVault:Found',  component : FoundItemsPageComponent},
+  {path : 'lost-items',title: 'SAFEVault:Lost',  component : LostItemsPageComponent},
+  {path : 'found-items/:searchTerm',title: 'SAFEVault:Found',  component : FoundItemsPageComponent},
+  {path : 'lost-items/:searchTerm',title: 'SAFEVault:Lost',  component : LostItemsPageComponent},
+  {path : 'lost-items/info/:itemID',title: 'SAFEVault:LostInfo',  component : LostInfoPageComponent},
+  {path : 'found-items/info/:itemID',title: 'SAFEVault:FoundInfo',  component : FoundInfoPageComponent},
+  {path : 'found-items/info/:itemID/edit-found',title: 'SAFEVault:Edit',  component : EditFoundComponent},
+  {path : 'lost-items/info/:itemID/edit-lost',title: 'SAFEVault:Edit',  component : EditLostComponent},
+  {path : 'profile/:id',title: 'SAFEVault:Profile',  component : ProfilePageComponent},
+  {path : 'admin-page/:id',title: 'SAFEVault:Admin',  component : AdminPageComponent},
 ];
 
 @NgModule({

@@ -1,5 +1,4 @@
 
-
 *{
   font-family: 'Poppins', sans-serif;
 }
@@ -148,7 +147,7 @@ h2{
 }
 /* Logo-2 */
 .logo-2 h3 {
-   color: white;
+   color: black;
    font-family: 'Oswald', sans-serif;
    font-weight: bolder;
    font-size: 25px;
