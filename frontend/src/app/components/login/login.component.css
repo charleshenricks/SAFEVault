@@ -7,8 +7,8 @@ body{
 .loginbox{
   width: 320px;
   height: 400px;
-  background: rgba(76, 216, 255, 0.97);
-  color: rgb(10, 93, 121);
+  background: white;
+  color: #830A0A;
   top: 50%;
   left: 50%;
   position: absolute;
@@ -41,7 +41,7 @@ h1{
 {
   outline: none;
   height: 40px;
-  color: rgb(21, 191, 221);
+  color: #830A0A;
   font-size: 12px;
 }
 
@@ -49,7 +49,7 @@ h1{
 {
   border: none;
   border-bottom: 1px solid #fff;
-  background: rgb(46, 142, 194);
+  background: #830A0A;
   outline: none;
   height: 40px;
   color: #fff;
@@ -61,7 +61,7 @@ h1{
   border: none;
   outline: none;
   height: 40px;
-  background: rgb(10, 93, 121);
+  background: #830A0A;
   color: white;
   font-size: 18px;
   letter-spacing: 1px;
@@ -81,7 +81,7 @@ h1{
   line-height: 20px;
   margin-left:7%;
   margin-right:5%;
-  color:rgb(10, 93, 121);
+  color:#830A0A;
   font-weight: 550;
 }
 
