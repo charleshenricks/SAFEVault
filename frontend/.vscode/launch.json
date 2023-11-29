@@ -1,20 +1,58 @@
+// AUTOMATICALLY GENERATED FILE. PLEASE DO NOT MODIFY IT MANUALLY
+//
+// PIO Unified Debugger
+//
+// Documentation: https://docs.platformio.org/page/plus/debugging.html
+// Configuration: https://docs.platformio.org/page/projectconf/section_env_debug.html
+
 {
-  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-  "version": "0.2.0",
-  "configurations": [
-    {
-      "name": "ng serve",
-      "type": "pwa-chrome",
-      "request": "launch",
-      "preLaunchTask": "npm: start",
-      "url": "http://localhost:4200/"
-    },
-    {
-      "name": "ng test",
-      "type": "chrome",
-      "request": "launch",
-      "preLaunchTask": "npm: test",
-      "url": "http://localhost:9876/debug.html"
-    }
-  ]
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "ng serve",
+            "type": "pwa-chrome",
+            "request": "launch",
+            "preLaunchTask": "npm: start",
+            "url": "http://localhost:4200/"
+        },
+        {
+            "name": "ng test",
+            "type": "chrome",
+            "request": "launch",
+            "preLaunchTask": "npm: test",
+            "url": "http://localhost:9876/debug.html"
+        },
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug",
+            "executable": "D:/NeilSPace/SAFEVault/frontend/.pio/build/esp32doit-devkit-v1/firmware.elf",
+            "projectEnvName": "esp32doit-devkit-v1",
+            "toolchainBinDir": "C:/Users/Neil Melvin A. Diaz/.platformio/packages/toolchain-xtensa-esp32/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "preLaunchTask": {
+                "type": "PlatformIO",
+                "task": "Pre-Debug"
+            }
+        },
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug (skip Pre-Debug)",
+            "executable": "D:/NeilSPace/SAFEVault/frontend/.pio/build/esp32doit-devkit-v1/firmware.elf",
+            "projectEnvName": "esp32doit-devkit-v1",
+            "toolchainBinDir": "C:/Users/Neil Melvin A. Diaz/.platformio/packages/toolchain-xtensa-esp32/bin",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "platformio-debug",
+            "request": "launch",
+            "name": "PIO Debug (without uploading)",
+            "executable": "D:/NeilSPace/SAFEVault/frontend/.pio/build/esp32doit-devkit-v1/firmware.elf",
+            "projectEnvName": "esp32doit-devkit-v1",
+            "toolchainBinDir": "C:/Users/Neil Melvin A. Diaz/.platformio/packages/toolchain-xtensa-esp32/bin",
+            "internalConsoleOptions": "openOnSessionStart",
+            "loadMode": "manual"
+        }
+    ]
 }
