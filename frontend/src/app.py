@@ -14,9 +14,8 @@ print(mongo_url)
 client = MongoClient(mongo_url)
 db = client['test']
 
-@app.get("/api/sensors")
-def get_sensors():
-    sensor_id = request.args.get('sensor_id')
+@app.get("/api/sensors/<sensor_id>")
+def get_sensors(sensor_id):
     filter = {} if sensor_id is None else {"sensor_id": sensor_id}
     sensors = list(db.sensors.find(filter))
 
@@ -53,3 +52,5 @@ def handle_500_error(error):
                                   "errorDescription": "Internal Server Error",
                                   "errorDetailedDescription": error.description,
                                   "errorName": error.name}), 500)
+
+app.run(host="0.0.0.0", port=5000)

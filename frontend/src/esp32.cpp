@@ -15,7 +15,7 @@ const char *password = "PukNTRu3";
 /**** NEED TO CHANGE THIS ACCORDING TO YOUR SETUP *****/
 // The REST API endpoint - Change the IP Address
 // const char *base_rest_url = "http://192.168.100.22:5000/";
-const char *base_rest_url = "http://127.0.0.1:5000/";
+const char *base_rest_url = "http://192.168.1.20:5000/";
 
 WiFiClient client;
 HTTPClient http;
@@ -34,20 +34,19 @@ struct LED
   char status[10];
 };
 
-const int JSON_DOC_SIZE = 256;
+const int JSON_DOC_SIZE = 500;
 // HTTP GET Call
 StaticJsonDocument<JSON_DOC_SIZE> callHTTPGet(const char *sensor_id)
 {
   char rest_api_url[200];
   // Calling our API server
-  sprintf(rest_api_url, "%sapi/sensors?sensor_id=%s", base_rest_url, sensor_id);
+  sprintf(rest_api_url, "%sapi/sensors/%s", base_rest_url, sensor_id);
   Serial.println(rest_api_url);
 
   http.useHTTP10(true);
   http.begin(client, rest_api_url);
   http.addHeader("Content-Type", "application/json");
   http.GET();
-
   StaticJsonDocument<JSON_DOC_SIZE> doc;
   // Parse response
   DeserializationError error = deserializeJson(doc, http.getStream());
@@ -66,30 +65,48 @@ StaticJsonDocument<JSON_DOC_SIZE> callHTTPGet(const char *sensor_id)
 // Extract LED records
 LED extractLEDConfiguration(const char *sensor_id)
 {
-  StaticJsonDocument<JSON_DOC_SIZE> doc = callHTTPGet(sensor_id);
-  if (doc.isNull() || doc.size() > 1)
+    StaticJsonDocument<JSON_DOC_SIZE> doc = callHTTPGet(sensor_id);
+    if (doc.isNull()) {
+        Serial.println("JSON document is null");
+        return {}; // or LED{}
+    }
+
+    if (!doc.is<JsonArray>()) {
+        Serial.println("JSON document is not an array");
+        return {}; // or LED{}
+    }
+
+    for (JsonObject item : doc.as<JsonArray>())
+    {
+        LED ledTemp = {};
+
+        if (item.containsKey("sensor_id")) {
+            strncpy(ledTemp.sensor_id, item["sensor_id"] | "", sizeof(ledTemp.sensor_id));
+        }
+
+        if (item.containsKey("description")) {
+            strncpy(ledTemp.description, item["description"] | "", sizeof(ledTemp.description));
+        }
+
+        if (item.containsKey("location")) {
+            strncpy(ledTemp.location, item["location"] | "", sizeof(ledTemp.location));
+        }
+
+        ledTemp.enabled = item["enabled"] | false;
+
+        if (item.containsKey("type")) {
+            strncpy(ledTemp.type, item["type"] | "", sizeof(ledTemp.type));
+        }
+
+        if (item.containsKey("value")) {
+            strncpy(ledTemp.status, item["value"] | "", sizeof(ledTemp.status));
+        }
+
+        return ledTemp;
+    }
+
+    Serial.println("No items found in JSON array");
     return {}; // or LED{}
-  for (JsonObject item : doc.as<JsonArray>())
-  {
-
-    const char *sensorId = item["sensor_id"];      // "led_1"
-    const char *description = item["description"]; // "This is our LED"
-    const char *location = item["location"];       // "Inside the bedroom"
-    bool enabled = item["enabled"];                // true
-    const char *type = item["type"];               // "toggle"
-    const char *status = item["status"];           // "HIGH"
-
-    LED ledTemp = {};
-    strcpy(ledTemp.sensor_id, sensorId);
-    strcpy(ledTemp.description, description);
-    strcpy(ledTemp.location, location);
-    ledTemp.enabled = enabled;
-    strcpy(ledTemp.type, type);
-    strcpy(ledTemp.status, status);
-
-    return ledTemp;
-  }
-  return {}; // or LED{}
 }
 
 // Convert HIGH and LOW to Arduino compatible values
