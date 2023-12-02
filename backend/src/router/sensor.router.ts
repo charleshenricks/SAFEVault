@@ -4,7 +4,7 @@ import { SensorModel } from '../models/sensor.model';
 
 const router = Router();
 
-router.post('/led_1', asyncHandler(async (req, res) => {
+router.put('/led_1', asyncHandler(async (req, res) => {
   const { sensor_id, description, location, enable, type, value } = req.body;
   const sensor = await SensorModel.findOne({sensor_id : "led_1" });
 
