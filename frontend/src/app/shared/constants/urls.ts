@@ -64,4 +64,4 @@ export const DELETE_ITEM = BASE_URL + '/api/items/delete-item/';
 
 export const DELETE_ALL_ITEM = BASE_URL + '/api/items/deleteAll-item/';
 
-export const LED_EDIT = BASE_URL + 'api/sensors/led_1';
+export const LED_EDIT = BASE_URL + '/api/sensors/led_1';

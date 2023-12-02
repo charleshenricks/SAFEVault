@@ -1,4 +1,3 @@
-import { Sensors } from './../shared/models/Sensors';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -9,9 +8,12 @@ import { IUserLogin } from '../shared/interfaces/IUserLogin';
 import { IUserRegister } from '../shared/interfaces/IUserRegister';
 import { User } from '../shared/models/User';
 import { ISensor } from '../shared/interfaces/ISensor';
+import { Sensors } from './../shared/models/Sensors';
 
 
 const USER_KEY = 'User';
+const SENSOR_KEY = 'Sensors';
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,7 @@ const USER_KEY = 'User';
 export class UserService {
   private userSubject = new BehaviorSubject<User>(this.getUserFromLocalStorage());
   public userObservable: Observable<User>;
+  
 
   constructor(private http:HttpClient, private toastrService: ToastrService, private router: Router) {
     this.userObservable = this.userSubject.asObservable();
@@ -150,6 +153,16 @@ export class UserService {
     localStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
+  setSensorToLocalStorage(sensors:Sensors){
+    localStorage.setItem(LED_EDIT, JSON.stringify(sensors));
+  }
+
+  getSensorFromLocalStorage(sensors:Sensors){
+    const sensorJson = localStorage.getItem(SENSOR_KEY);
+    if(sensorJson) return JSON.parse(sensorJson) as Sensors;
+    return new Sensors();
+  }
+  
   getUserFromLocalStorage():User{
     const userJson = localStorage.getItem(USER_KEY);
     if(userJson) return JSON.parse(userJson) as User;
@@ -160,12 +173,13 @@ export class UserService {
     return (localStorage.getItem(USER_KEY) != null);
   }
 
-  LedEdit(sensorUpdate:ISensor, id:string): Observable<Sensors>{
-    return this.http.patch<Sensors>(LED_EDIT+id, sensorUpdate).pipe(
+  LedEdit(sensorUpdate:ISensor): Observable<Sensors>{
+    return this.http.post<Sensors>(LED_EDIT, sensorUpdate).pipe(
       tap({
-        next: (Sensors) => {
+        next: (sensors) => {
+          this.setSensorToLocalStorage(sensors);
           this.toastrService.success(
-            `Edit Successful`,
+            "Edit Successfully"
           )
         },
         error: (errorResponse) => {
