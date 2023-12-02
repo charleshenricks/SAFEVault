@@ -2,20 +2,24 @@
 #include <HTTPClient.h>
 #include <ArduinoJson.h>
 #include "DHT.h"
+#include <WiFi.h>
 
 #define LED1 13
 #define LED2 12
 
 // SSID and Password
-const char *ssid = "ZTE_2.4G_XshuY9";
-const char *password = "PukNTRu3";
+// const char *ssid = "ZTE_2.4G_XshuY9";
+// const char *password = "PukNTRu3";
 // const char *ssid = "RoomSaCute2.4G";
 // const char *password = "123#Colawin#123";
+const char *ssid = "realme GT NEO 3";
+const char *password = "05132001";
 
 /**** NEED TO CHANGE THIS ACCORDING TO YOUR SETUP *****/
 // The REST API endpoint - Change the IP Address
 // const char *base_rest_url = "http://192.168.100.22:5000/";
-const char *base_rest_url = "http://192.168.1.20:5000/";
+// const char *base_rest_url = "http://192.168.1.20:5000/";
+const char *base_rest_url = "http://192.168.35.69:5000/";
 
 WiFiClient client;
 HTTPClient http;
@@ -119,7 +123,7 @@ int convertStatus(const char *value)
   }
   else
   {
-    Serial.println("Setting LED to LOW");
+    Serial.println("Setting LED to LOW!");
     return LOW;
   }
 }
@@ -186,4 +190,6 @@ void loop()
     Serial.println("---------------");
   }
 }
+
+
 

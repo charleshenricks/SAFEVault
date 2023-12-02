@@ -1,12 +1,14 @@
+import { Sensors } from './../shared/models/Sensors';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { DELETE_ALL_USERS, DELETE_USERS_URL, GET_ADMIN_URL, GET_USERS_URL, USER_EDIT_URL, USER_LOGIN_URL, USER_REGISTER_URL } from '../shared/constants/urls';
+import { DELETE_ALL_USERS, DELETE_USERS_URL, GET_ADMIN_URL, GET_USERS_URL, USER_EDIT_URL, USER_LOGIN_URL, USER_REGISTER_URL, LED_EDIT  } from '../shared/constants/urls';
 import { IUserLogin } from '../shared/interfaces/IUserLogin';
 import { IUserRegister } from '../shared/interfaces/IUserRegister';
 import { User } from '../shared/models/User';
+import { ISensor } from '../shared/interfaces/ISensor';
 
 
 const USER_KEY = 'User';
@@ -158,4 +160,19 @@ export class UserService {
     return (localStorage.getItem(USER_KEY) != null);
   }
 
+  LedEdit(sensorUpdate:ISensor, id:string): Observable<Sensors>{
+    return this.http.patch<Sensors>(LED_EDIT+id, sensorUpdate).pipe(
+      tap({
+        next: (Sensors) => {
+          this.toastrService.success(
+            `Edit Successful`,
+          )
+        },
+        error: (errorResponse) => {
+          this.toastrService.error(errorResponse.error, 'Edit Failed');
+        }
+
+      })
+    );
+  }
 }

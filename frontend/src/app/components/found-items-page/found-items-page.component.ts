@@ -15,10 +15,12 @@ import { User } from 'src/app/shared/models/User';
 })
 export class FoundItemsPageComponent{
 
+  
   user!:User;
   items: Item[] = [];
 
-  constructor(private itemService:ItemsService, activatedRoute: ActivatedRoute, userService: UserService) {
+  
+  constructor(private itemService:ItemsService, activatedRoute: ActivatedRoute, userService:UserService,) {
     let ItemsObservable: Observable<Item[]>;
     userService.userObservable.subscribe((newUser) => {
       this.user = newUser;
@@ -43,5 +45,21 @@ export class FoundItemsPageComponent{
 
   get isAuth(){
     return this.user.token;
+  }
+
+  ledEdit(){
+    
+    //   const dataToSend = {
+    //     // Define your data here
+    //   };
+    // this.userService.LedEdit(dataToSend).subscribe(
+    //   response => {
+    //     console.log('Data sent successfully:', response);
+    //   },
+    //   error => {
+    //     console.error('Error sending data:', error);
+    //   }
+    // );
+  
   }
 }

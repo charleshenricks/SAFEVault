@@ -38,6 +38,9 @@
   <div class="found" *ngIf="!isAuth&&!isAdmin">
     <button routerLink="/login">Post Found Item</button>
   </div>
+  <div>
+    <button (click)="ledEdit()">SUBMIT</button>
+  </div>
 </ul>
 
 

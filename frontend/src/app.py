@@ -53,4 +53,4 @@ def handle_500_error(error):
                                   "errorDetailedDescription": error.description,
                                   "errorName": error.name}), 500)
 
-app.run(host="0.0.0.0", port=5000)
+app.run(host="0.0.0.0", port=5000, debug=True)
