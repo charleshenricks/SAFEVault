@@ -5,6 +5,7 @@ import { Router } from 'express';
 import  asyncHandler  from 'express-async-handler';
 import { IItem, ItemModel } from '../models/item.model';
 import { UserModel } from '../models/user.model';
+import { SensorModel } from '../models/sensor.model';
 
 
 const router = Router();
@@ -280,6 +281,18 @@ const router = Router();
     }
   ))
 
+  // router.post("/sensors/led_1", asyncHandler(
+  //   async (req, res) =>{
+  //     const sensor = await SensorModel.findOne({sensor_id:
+  //       "led_1"});
+  //       if(sensor!.value == "LOW"){
+  //         await sensor!.updateOne({ $set: { "value": "HIGH" } });
+  //       }else{
+  //         await sensor!.updateOne({ $set: { "value": "LOW" } });
+  //       }
+  //   }
+  // ))
+      
 
 export default router;
 

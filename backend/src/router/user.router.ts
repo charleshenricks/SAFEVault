@@ -2,7 +2,7 @@ import { Router } from 'express';
 import jwt from 'jsonwebtoken'
 import  asyncHandler  from 'express-async-handler';
 import { IUser, UserModel } from '../models/user.model';
-import bcrypt from 'bcryptjs';
+import bcrypt from 'bcryptjs';  
 
 
 const router = Router();
