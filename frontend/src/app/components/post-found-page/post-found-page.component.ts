@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ItemsService } from 'src/app/services/items.service';
 import { UserService } from 'src/app/services/user.service';
 import { IItem } from 'src/app/shared/interfaces/IItem';
+import { ISensor } from 'src/app/shared/interfaces/ISensor';
 import { User } from 'src/app/shared/models/User';
 
 class ImageSnippet {
@@ -27,7 +28,7 @@ selectedFile!: ImageSnippet;
   imgName!: string;
 
 
-  constructor(userService:UserService, private itemService:ItemsService ,private formBuilder:FormBuilder , private router:Router) {
+  constructor(private userService:UserService, private itemService:ItemsService ,private formBuilder:FormBuilder , private router:Router) {
     userService.userObservable.subscribe((newUser) => {
       this.user = newUser;
     });
@@ -49,6 +50,26 @@ selectedFile!: ImageSnippet;
   }
 
   submit(){
+
+      const led_value: ISensor = {
+      sensor_id: "led_1",
+      description: "This is our LED", 
+      location: "Inside the bedroom",
+      enable: true,
+      type: "toggle",
+      value: "",
+    };
+
+    this.userService.LedEdit(led_value).subscribe(
+      sensors => {
+        // Handle success
+        console.log('Edit Successful', sensors);
+      },
+      error => {
+        // Handle error
+        console.error('Edit Failed', error);
+      }
+    );
     this.isSubmitted = true;
     if(this.itemForm.invalid && this.imgName) return;
 

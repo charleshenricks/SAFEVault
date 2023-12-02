@@ -22,10 +22,10 @@ export class FoundItemsPageComponent{
   router: any;
   returnUrl = '/';
 
-  ngOnInit() {
-    // Call LedEdit() when needed
-    this.updateLED();
-  }
+  // ngOnInit() {
+  //   // Call LedEdit() when needed
+  //   this.updateLED();
+  // }
 
   
   constructor(
@@ -58,38 +58,29 @@ export class FoundItemsPageComponent{
     return this.user.token;
   }
 
-  updateLED(){
-    // const led_value :ISensor =  {
-      // sensor_id: "led_1",
-      // description: "This is our LED", location: "Inside the bedroom",
-      // enable: true,
-      // type: "toggle",
-      // value: "LOW",
-    // };
-    // this.userService.LedEdit(led_value).subscribe(_ =>{
-    //   this.router.navigateByUrl(this.returnUrl)
-    // })
+  // updateLED(){
 
-    const led_value: ISensor = {
-      sensor_id: "led_1",
-      description: "This is our LED", location: "Inside the bedroom",
-      enable: true,
-      type: "toggle",
-      value: "LOW",
-    };
+  //   const led_value: ISensor = {
+  //     sensor_id: "led_1",
+  //     description: "This is our LED", 
+  //     location: "Inside the bedroom",
+  //     enable: true,
+  //     type: "toggle",
+  //     value: "",
+  //   };
 
-    this.userService.LedEdit(led_value).subscribe(
-      sensors => {
-        // Handle success
-        console.log('Edit Successful', sensors);
-      },
-      error => {
-        // Handle error
-        console.error('Edit Failed', error);
-      }
-    );
+  //   this.userService.LedEdit(led_value).subscribe(
+  //     sensors => {
+  //       // Handle success
+  //       console.log('Edit Successful', sensors);
+  //     },
+  //     error => {
+  //       // Handle error
+  //       console.error('Edit Failed', error);
+  //     }
+  //   );
   
-  }
+  // }
 
   
 }

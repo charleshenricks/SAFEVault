@@ -174,7 +174,7 @@ export class UserService {
   }
 
   LedEdit(sensorUpdate:ISensor): Observable<Sensors>{
-    return this.http.post<Sensors>(LED_EDIT, sensorUpdate).pipe(
+    return this.http.put<Sensors>(LED_EDIT, sensorUpdate).pipe(
       tap({
         next: (sensors) => {
           this.setSensorToLocalStorage(sensors);
