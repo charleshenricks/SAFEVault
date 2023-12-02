@@ -30,4 +30,4 @@ export const SensorSchema = new Schema<ISensor>(
     }
 )
 
-export const SensorModel = model<ISensor>('sensor', SensorSchema);
+export const SensorModel = model<ISensor>('sensors', SensorSchema);
