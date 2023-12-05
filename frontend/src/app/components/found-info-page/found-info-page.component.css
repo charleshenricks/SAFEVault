@@ -201,3 +201,33 @@ h2{
   font-weight: bold;
  }
 
+
+ /* Add these styles to your component's CSS or global styles */
+
+/* Container for the generated PIN */
+.generated-pin-container {
+  position: fixed;
+  bottom: 200px;
+  right: 40%;
+}
+
+/* Styles for the generated PIN display */
+.generated-pin {
+  padding: 10px;
+  background-color: #ffcccc; /* Light red background */
+  border: 1px solid #ff3333; /* Red border */
+  border-radius: 5px;
+  text-align: center;
+}
+
+.generated-pin-text {
+  font-size: 16px;
+  color: #ff3333; /* Red text */
+}
+
+.generated-pin-value {
+  font-size: 18px;
+  font-weight: bold;
+  color: #ff0000; /* Darker red text */
+}
+

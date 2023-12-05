@@ -27,7 +27,7 @@
           <ul *ngIf="!isAuth;else other_false">Please Login to Claim Item and Display Poster Info</ul>
         </ng-template>
         <ng-template #other_false>
-          <ul *ngIf="item.status;else other_content2">Already Returned</ul>
+          <ul *ngIf="item.status;else other_content2">Appeal Approved</ul>
         </ng-template>
         <ng-template #other_content2>
           <ul *ngIf="!alreadyClaimed;else other_content3">Claim Item to Show Poster Information</ul>
@@ -92,6 +92,18 @@
       <button (click)="postDelete()">Delete Post</button>
     </div>
   </div>
+  <!-- Display the PIN if generatedPin is available and the appeal is approved -->
+<!-- Display the PIN if generatedPin is available and the appeal is approved -->
+<div class="generated-pin-container" *ngIf="generatedPin !== undefined && generatedPin !== null && item.status === true && user.id == item.returned_id">
+  <div class="generated-pin">
+    <span class="generated-pin-text">Generated PIN:</span>
+    <span class="generated-pin-value">{{ generatedPin }}</span>
+    <p> Please claim your item in our SAFE Vault.</p>
+    <p>Always be attended of your personal belongings.</p>
+  </div>
+</div>
+
+
 
 </body>
 

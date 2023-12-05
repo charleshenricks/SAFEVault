@@ -14,10 +14,12 @@ import { User } from 'src/app/shared/models/User';
 export class FoundInfoPageComponent {
   item = {} as Item;
   user!:User;
+  generatedPin: number | undefined | null;
 
   constructor(private activatedRoute:ActivatedRoute, private itemService: ItemsService,
      private router: Router, private userService: UserService) { }
 
+  
   ngOnInit(): void {
     this.userService.userObservable.subscribe((newUser) => {
       this.user = newUser;
@@ -25,9 +27,19 @@ export class FoundInfoPageComponent {
     this.activatedRoute.params.subscribe((params) => {
         this.itemService.getItemByID(params.itemID).subscribe(serverItem => {
         this.item = serverItem;
+        this.checkGeneratedPinVisibility();
       });
     });
   }
+
+  checkGeneratedPinVisibility() {
+    if (this.item.status == true) {
+      this.generatedPin = this.item.pin;
+    } else {
+      this.generatedPin = null;
+    }
+  }
+
   get isPoster(){
     return (this.item.poster_email===this.user.email)||("6535010718dcee614802f3a3"===this.user.id);
   }
