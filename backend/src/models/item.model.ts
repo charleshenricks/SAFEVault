@@ -11,7 +11,7 @@ export interface IItem{
     date: string;
     more_info: string;
     status: boolean;
-
+    pin: number;
     poster_id: string;
     poster_email: string;
     poster_name: string;
@@ -41,7 +41,7 @@ export const ItemSchema = new Schema<IItem>(
         date: { type:String, required:true },
         more_info: { type:String, required:true },
         status: { type:Boolean, required:true },
-
+        pin: { type: Number, default: null},
         poster_id: { type:String, required:true },
         poster_email: { type:String, required:true },
         poster_name: { type:String, required:true },

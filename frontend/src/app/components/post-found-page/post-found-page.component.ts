@@ -11,7 +11,6 @@ class ImageSnippet {
   constructor(public src: string, public file: File) {}
 }
 
-
 @Component({
   selector: 'app-post-found-page',
   templateUrl: './post-found-page.component.html',
@@ -75,6 +74,9 @@ selectedFile!: ImageSnippet;
 
     const fv= this.itemForm.value;
 
+    // Generate a random 4 -digit PIN
+    const randomPin = this.generatePin();
+
       const item :IItem = {
 
         type: true,
@@ -84,14 +86,15 @@ selectedFile!: ImageSnippet;
         date: fv.date,
         more_info: fv.more_info,
         status: false,
-
-        poster_id: this.user.id,
+        pin: randomPin,
+        poster_id: this.user.id,  
         poster_name: this.user.Fullname,
         poster_email: this.user.email,
         poster_contactinfo: this.user.contactinfo,
 
       };
 
+      
     const reader = new FileReader();
 
     reader.addEventListener('load', (event: any) => {
@@ -102,6 +105,12 @@ selectedFile!: ImageSnippet;
     });
     reader.readAsDataURL(this.img);
   }
+
+  // Function to generate a random 4-digit PIN
+generatePin(): number {
+  return Math.floor(1000 + Math.random() * 9000); // Generating a 4-digit random number
+}
+
 
   processFile(imageInput: any) {
     this.img = imageInput.files[0];

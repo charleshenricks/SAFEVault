@@ -6,7 +6,7 @@ export interface IItem{
   date: string;
   more_info: string;
   status: boolean;
-
+  pin?: number | undefined | null;
   poster_id: string;
   poster_email: string;
   poster_name: string;

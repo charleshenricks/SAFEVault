@@ -16,6 +16,9 @@ const router = Router();
         const {poster_id, poster_name, poster_email, poster_contactinfo, 
        //   retriever_id, retriever_name, retriever_email, retriever_contactinfo,
           type, name, characteristic, loc, date, more_info, status} = req.body;
+
+        const randomPin = Math.floor(1000 + Math.random() * 9000);
+
         const Item: IItem = {
                 poster_id,
                 poster_name,
@@ -31,6 +34,7 @@ const router = Router();
                 more_info,
                 status,
                 id: "",
+                pin: randomPin,
                 retriever_id: "", 
                 retriever_name: "", 
                 retriever_email: "", 
