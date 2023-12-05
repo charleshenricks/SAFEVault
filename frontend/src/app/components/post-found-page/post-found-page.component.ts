@@ -63,11 +63,11 @@ selectedFile!: ImageSnippet;
     this.userService.LedEdit(led_value).subscribe(
       sensors => {
         // Handle success
-        console.log('Edit Successful', sensors);
+        console.log('Vault opened.', sensors);
       },
       error => {
         // Handle error
-        console.error('Edit Failed', error);
+        console.error('Please try again!', error);
       }
     );
     this.isSubmitted = true;
