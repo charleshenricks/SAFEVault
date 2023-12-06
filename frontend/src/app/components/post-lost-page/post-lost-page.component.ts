@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { ItemsService } from 'src/app/services/items.service';
 import { UserService } from 'src/app/services/user.service';
 import { IItem } from 'src/app/shared/interfaces/IItem';
+import { ISensor } from 'src/app/shared/interfaces/ISensor';
 import { User } from 'src/app/shared/models/User';
 
 class ImageSnippet {
@@ -49,10 +50,23 @@ export class PostLostPageComponent {
   }
 
   submit(){
+
+    const led_value: ISensor = {
+      sensor_id: "led_1",
+      description: "This is our LED", 
+      location: "Inside the bedroom",
+      enable: true,
+      type: "toggle",
+      value: "",
+    };
+
+    
     this.isSubmitted = true;
     if(this.itemForm.invalid && this.imgName) return;
 
     const fv= this.itemForm.value;
+
+    const randomPin = this.generatePin();
 
     const item :IItem = {
 
@@ -63,7 +77,7 @@ export class PostLostPageComponent {
       date: fv.date,
       more_info: fv.more_info,
       status: false,
-
+      pin: randomPin,
       poster_id: this.user.id,
       poster_name: this.user.Fullname,
       poster_email: this.user.email,
@@ -80,6 +94,10 @@ export class PostLostPageComponent {
       })
     });
     reader.readAsDataURL(this.img);
+  }
+
+  generatePin(): number {
+    return Math.floor(1000 + Math.random() * 9000); // Generating a 4-digit random number
   }
 
   processFile(imageInput: any) {
