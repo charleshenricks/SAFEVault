@@ -8,7 +8,7 @@ import { ISensor } from 'src/app/shared/interfaces/ISensor';
 import { User } from 'src/app/shared/models/User';
 
 class ImageSnippet {
-  constructor(public src: string, public file: File) {}
+  constructor(public src: string, public file: File) { }
 }
 
 
@@ -20,15 +20,22 @@ class ImageSnippet {
 export class PostLostPageComponent {
   selectedFile!: ImageSnippet;
 
-  user!:User;
-  itemForm!:FormGroup;
+  user!: User;
+  itemForm!: FormGroup;
   isSubmitted = false;
   returnUrl = 'lost-items';
   img!: File;
   imgName!: string;
 
+  //timer function data
+  displayTime: string = '00:00';
+  isTimerRunning: boolean = false;
+  timerInterval: any;
+  totalSeconds: number = 3;
+  //end of timer function data
 
-  constructor(private userService:UserService, private itemService:ItemsService ,private formBuilder:FormBuilder , private router:Router) {
+
+  constructor(private userService: UserService, private itemService: ItemsService, private formBuilder: FormBuilder, private router: Router) {
     userService.userObservable.subscribe((newUser) => {
       this.user = newUser;
     });
@@ -44,31 +51,31 @@ export class PostLostPageComponent {
     });
   }
 
-  get form()
-  {
+  get form() {
     return this.itemForm.controls;
   }
 
-  submit(){
+  submit() {
 
     const led_value: ISensor = {
       sensor_id: "led_1",
-      description: "This is our LED", 
+      description: "This is our LED",
       location: "Inside the bedroom",
       enable: true,
       type: "toggle",
       value: "",
     };
 
-    
+
     this.isSubmitted = true;
-    if(this.itemForm.invalid && this.imgName) return;
+    if (this.itemForm.invalid && this.imgName) return;
 
-    const fv= this.itemForm.value;
+    const fv = this.itemForm.value;
 
+    //this.startTimer();
     const randomPin = this.generatePin();
 
-    const item :IItem = {
+    const item: IItem = {
 
       type: false,
       name: fv.name,
@@ -85,6 +92,7 @@ export class PostLostPageComponent {
 
     };
 
+
     const reader = new FileReader();
 
     reader.addEventListener('load', (event: any) => {
@@ -95,6 +103,43 @@ export class PostLostPageComponent {
     });
     reader.readAsDataURL(this.img);
   }
+
+  // startTimer() {
+  //   if (!this.isTimerRunning) {
+  //     this.isTimerRunning = true;
+  //     this.timerInterval = setInterval(() => {
+  //       this.totalSeconds--;
+  //       console.log(this.totalSeconds);
+  //       if (this.totalSeconds <= 0) {
+  //         this.stopTimer();
+  //       }
+  //     }, 1000);
+  //   }
+  // }
+
+  // stopTimer() {
+  //   if (this.isTimerRunning) {
+  //     this.isTimerRunning = false;
+  //     this.updateSensorValue();
+  //     clearInterval(this.timerInterval);
+  //   }
+  // }
+
+  // //function that counts then updates tha value of the sensor
+  // updateSensorValue() {
+  //   const led_value: ISensor = {
+  //     sensor_id: "led_1",
+  //     description: "This is our LED",
+  //     location: "Inside the bedroom",
+  //     enable: true,
+  //     type: "toggle",
+  //     value: "",
+  //   };
+
+  //   this.userService.OffLed(led_value).subscribe()
+  //   console.log("TIMES up!");
+
+  // }
 
   generatePin(): number {
     return Math.floor(1000 + Math.random() * 9000); // Generating a 4-digit random number

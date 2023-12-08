@@ -179,7 +179,24 @@ export class UserService {
         next: (sensors) => {
           this.setSensorToLocalStorage(sensors);
           this.toastrService.success(
-            "Edit Successfully"
+            "VAULT OPEN"
+          )
+        },
+        error: (errorResponse) => {
+          this.toastrService.error(errorResponse.error, 'Edit Failed');
+        }
+
+      })
+    );
+  }
+  
+  OffLed(sensorUpdate:ISensor): Observable<Sensors>{
+    return this.http.put<Sensors>(LED_EDIT, sensorUpdate).pipe(
+      tap({
+        next: (sensors) => {
+          this.setSensorToLocalStorage(sensors);
+          this.toastrService.success(
+            "VAULT CLOSED"
           )
         },
         error: (errorResponse) => {

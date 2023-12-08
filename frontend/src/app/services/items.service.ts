@@ -225,7 +225,7 @@ export class ItemsService {
   }
 
   checkVault(): Observable<Item[]> {
-    return this.http.get<Item[]>(GET_ALL_POSTS)
+    return this.http.get<Item[]>(GET_FOUND_ITEM_URL)
   }
 
 }

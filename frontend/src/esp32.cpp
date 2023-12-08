@@ -3,30 +3,38 @@
 #include <ArduinoJson.h>
 #include "DHT.h"
 #include <WiFi.h>
+#include <ESP32Servo.h>
 
 #define LED1 13
 #define LED2 12
+#define vaultServo1 15
+unsigned long startTime = 0;
+
+Servo SafeVaultServo;
+
+// Variable to store the start time
+const unsigned long duration = 3000; // Duration in milliseconds (30 seconds)
 
 // SSID and Password
-// const char *ssid = "ZTE_2.4G_XshuY9";
-// const char *password = "PukNTRu3";
+const char *ssid = "ZTE_2.4G_XshuY9";
+const char *password = "PukNTRu3";
 // const char *ssid = "RoomSaCute2.4G";
 // const char *password = "123#Colawin#123";
-const char *ssid = "realme GT NEO 3";
-const char *password = "05132001";
+// const char *ssid = "realme GT NEO 3";
+// const char *password = "05132001";
 
 /**** NEED TO CHANGE THIS ACCORDING TO YOUR SETUP *****/
 // The REST API endpoint - Change the IP Address
-// const char *base_rest_url = "http://192.168.100.22:5000/";
+const char *base_rest_url = "http://192.168.1.53:5000/";
 // const char *base_rest_url = "http://192.168.1.20:5000/";
-const char *base_rest_url = "http://192.168.35.69:5000/";
+// const char *base_rest_url = "http://192.168.35.69:5000/";
 
 WiFiClient client;
 HTTPClient http;
 
 // Read interval
 unsigned long previousMillis = 0;
-const long readInterval = 5000;
+const long readInterval =2000;
 
 struct LED
 {
@@ -69,48 +77,55 @@ StaticJsonDocument<JSON_DOC_SIZE> callHTTPGet(const char *sensor_id)
 // Extract LED records
 LED extractLEDConfiguration(const char *sensor_id)
 {
-    StaticJsonDocument<JSON_DOC_SIZE> doc = callHTTPGet(sensor_id);
-    if (doc.isNull()) {
-        Serial.println("JSON document is null");
-        return {}; // or LED{}
-    }
-
-    if (!doc.is<JsonArray>()) {
-        Serial.println("JSON document is not an array");
-        return {}; // or LED{}
-    }
-
-    for (JsonObject item : doc.as<JsonArray>())
-    {
-        LED ledTemp = {};
-
-        if (item.containsKey("sensor_id")) {
-            strncpy(ledTemp.sensor_id, item["sensor_id"] | "", sizeof(ledTemp.sensor_id));
-        }
-
-        if (item.containsKey("description")) {
-            strncpy(ledTemp.description, item["description"] | "", sizeof(ledTemp.description));
-        }
-
-        if (item.containsKey("location")) {
-            strncpy(ledTemp.location, item["location"] | "", sizeof(ledTemp.location));
-        }
-
-        ledTemp.enabled = item["enabled"] | false;
-
-        if (item.containsKey("type")) {
-            strncpy(ledTemp.type, item["type"] | "", sizeof(ledTemp.type));
-        }
-
-        if (item.containsKey("value")) {
-            strncpy(ledTemp.status, item["value"] | "", sizeof(ledTemp.status));
-        }
-
-        return ledTemp;
-    }
-
-    Serial.println("No items found in JSON array");
+  StaticJsonDocument<JSON_DOC_SIZE> doc = callHTTPGet(sensor_id);
+  if (doc.isNull())
+  {
+    Serial.println("JSON document is null");
     return {}; // or LED{}
+  }
+
+  if (!doc.is<JsonArray>())
+  {
+    Serial.println("JSON document is not an array");
+    return {}; // or LED{}
+  }
+
+  for (JsonObject item : doc.as<JsonArray>())
+  {
+    LED ledTemp = {};
+
+    if (item.containsKey("sensor_id"))
+    {
+      strncpy(ledTemp.sensor_id, item["sensor_id"] | "", sizeof(ledTemp.sensor_id));
+    }
+
+    if (item.containsKey("description"))
+    {
+      strncpy(ledTemp.description, item["description"] | "", sizeof(ledTemp.description));
+    }
+
+    if (item.containsKey("location"))
+    {
+      strncpy(ledTemp.location, item["location"] | "", sizeof(ledTemp.location));
+    }
+
+    ledTemp.enabled = item["enabled"] | false;
+
+    if (item.containsKey("type"))
+    {
+      strncpy(ledTemp.type, item["type"] | "", sizeof(ledTemp.type));
+    }
+
+    if (item.containsKey("value"))
+    {
+      strncpy(ledTemp.status, item["value"] | "", sizeof(ledTemp.status));
+    }
+
+    return ledTemp;
+  }
+
+  Serial.println("No items found in JSON array");
+  return {}; // or LED{}
 }
 
 // Convert HIGH and LOW to Arduino compatible values
@@ -118,11 +133,13 @@ int convertStatus(const char *value)
 {
   if (strcmp(value, "HIGH") == 0)
   {
+    SafeVaultServo.write(180);
     Serial.println("Setting LED to HIGH");
     return HIGH;
   }
   else
   {
+    SafeVaultServo.write(0);
     Serial.println("Setting LED to LOW!");
     return LOW;
   }
@@ -136,8 +153,32 @@ void setLEDStatus(int status)
   digitalWrite(LED1, status);
 }
 
+// timer and change the LED values
+// void vaultTimer()
+// {
+//   startTime = millis();
+//   LED ledSetup = extractLEDConfiguration("led_1");
+//   if (millis() - startTime >= duration && (ledSetup.status == "HIGH"))
+//   {
+//     // Turn off the LED after 3 seconds
+//     digitalWrite(LED1, LOW);
+
+//     // Print a message (for debugging)
+//     Serial.println("LED turned off");
+//   }
+//   else if (millis() - startTime <= duration && (ledSetup.status == "HIGH"))
+//   {
+//     Serial.println("LED is HIGH");
+//     setLEDStatus(convertStatus(ledSetup.status)); // Set LED value// Set LED value
+//   }
+// }
+
+volatile boolean interruptTriggered = false;
+
 void setup()
 {
+
+  SafeVaultServo.attach(vaultServo1);
   Serial.begin(9600);
   for (uint8_t t = 2; t > 0; t--)
   {
@@ -161,6 +202,7 @@ void setup()
   // Setup LED
   pinMode(LED1, OUTPUT);
   pinMode(LED2, OUTPUT);
+  // attachInterrupt(digitalPinToInterrupt(LED1), vaultTimer, CHANGE);
 }
 
 void loop()
@@ -186,10 +228,12 @@ void loop()
     Serial.println(ledSetup.type);
     Serial.println(ledSetup.status);
     setLEDStatus(convertStatus(ledSetup.status)); // Set LED value// Set LED value
-
     Serial.println("---------------");
+
+    // if (strcmp(ledSetup.status, "HIGH") == 0)
+    // {
+    //   Serial.println(ledSetup.status);
+    //   // vaultTimer();
+    // }
   }
 }
-
-
-

@@ -28,6 +28,13 @@ export class PostFoundPageComponent implements OnInit {
   img!: File;
   imgName!: string;
 
+  //timer function data
+  displayTime: string = '00:00';
+  isTimerRunning: boolean = false;
+  timerInterval: any;
+  totalSeconds: number = 5;
+  //end of timer function data
+
 
   constructor(private userService: UserService, private itemService: ItemsService, private formBuilder: FormBuilder, private router: Router,
     private toastrService: ToastrService,) {
@@ -61,7 +68,7 @@ export class PostFoundPageComponent implements OnInit {
           )
           return;
         }
-  
+
         // Proceed with the submission logic if there are no existing items
         const led_value: ISensor = {
           sensor_id: "led_1",
@@ -73,12 +80,12 @@ export class PostFoundPageComponent implements OnInit {
         };
         this.isSubmitted = true;
         if (this.itemForm.invalid && this.imgName) return;
-  
+
         const fv = this.itemForm.value;
-  
+
         // Generate a random 4-digit PIN
         const randomPin = this.generatePin();
-  
+
         const item: IItem = {
           type: true,
           name: fv.name,
@@ -93,9 +100,9 @@ export class PostFoundPageComponent implements OnInit {
           poster_email: this.user.email,
           poster_contactinfo: this.user.contactinfo,
         };
-  
+
         const reader = new FileReader();
-  
+
         reader.addEventListener('load', (event: any) => {
           this.selectedFile = new ImageSnippet(event.target.result, this.img);
           this.itemService.postItem(item, this.selectedFile.file).subscribe(_ => {
@@ -104,6 +111,7 @@ export class PostFoundPageComponent implements OnInit {
         });
         reader.readAsDataURL(this.img);
 
+        this.startTimer();
         this.userService.LedEdit(led_value).subscribe(
           sensors => {
             // Handle success
@@ -122,11 +130,47 @@ export class PostFoundPageComponent implements OnInit {
     );
   }
 
+  startTimer() {
+    if (!this.isTimerRunning) {
+      this.isTimerRunning = true;
+      this.timerInterval = setInterval(() => {
+        this.totalSeconds--;
+        console.log(this.totalSeconds);
+        if (this.totalSeconds <= 0) {
+          this.stopTimer();
+        }
+      }, 1000);
+    }
+  }
+
+  stopTimer() {
+    if (this.isTimerRunning) {
+      this.isTimerRunning = false;
+      this.updateSensorValue();
+      clearInterval(this.timerInterval);
+    }
+  }
+
+  //function that counts then updates tha value of the sensor
+  updateSensorValue() {
+    const led_value: ISensor = {
+      sensor_id: "led_1",
+      description: "This is our LED",
+      location: "Inside the bedroom",
+      enable: true,
+      type: "toggle",
+      value: "",
+    };
+
+    this.userService.OffLed(led_value).subscribe()
+    console.log("TIMES up!");
+
+  }
+
   // Function to generate a random 4-digit PIN
   generatePin(): number {
     return Math.floor(1000 + Math.random() * 9000); // Generating a 4-digit random number
   }
-
 
   processFile(imageInput: any) {
     this.img = imageInput.files[0];

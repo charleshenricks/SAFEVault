@@ -23,14 +23,23 @@ def get_sensors(sensor_id):
         response=dumps(sensors), status=200,  mimetype="application/json")
     return response
 
-@app.put("/api/sensors/<id>")
-def update_sensor(id):
-    _json = request.json
-    db.sensors.update_one({'_id': ObjectId(id)}, {"$set": _json})
+@app.get("/api/items/found/<type>")
+def getLedPinVal(type):
+    filter = {} if type is None else {type: type}
+    get_type = list(db.get_type.find(filter))
 
-    resp = jsonify({"message": "Sensor updated successfully"})
-    resp.status_code = 200
-    return resp
+    response = Response(
+        response=dumps(get_type), status=200,  mimetype="application/json")
+    return response
+
+# @app.put("/api/sensors/<id>")
+# def update_sensor(id):
+#     _json = request.json
+#     db.sensors.update_one({'_id': ObjectId(id)}, {"$set": _json})
+
+#     resp = jsonify({"message": "Sensor updated successfully"})
+#     resp.status_code = 200
+#     return resp
 
 @app.errorhandler(400)
 def handle_400_error(error):
