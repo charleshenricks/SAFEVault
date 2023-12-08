@@ -1,4 +1,5 @@
 export class Item{
+  item_type!: string;
   id!: string;
   type!: boolean;
   name!: string;

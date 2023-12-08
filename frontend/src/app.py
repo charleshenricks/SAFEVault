@@ -23,14 +23,34 @@ def get_sensors(sensor_id):
         response=dumps(sensors), status=200,  mimetype="application/json")
     return response
 
-@app.get("/api/items/found/<type>")
-def getLedPinVal(type):
-    filter = {} if type is None else {type: type}
-    get_type = list(db.get_type.find(filter))
+# @app.get("/api/sensors/<type>")
+# def get_sensors(type):
+#     filter = {} if type is None else {"type": type}
+#     sensors = list(db.sensors.find(filter))
+
+#     response = Response(
+#         response=dumps(sensors), status=200,  mimetype="application/json")
+#     return response
+
+@app.get("/api/items/<item_type>")
+def get_items(item_type):
+    filter = {} if item_type is None else {"item_type": item_type}
+    items = list(db.items.find(filter))
 
     response = Response(
-        response=dumps(get_type), status=200,  mimetype="application/json")
+        response=dumps(items), status=200,  mimetype="application/json")
     return response
+
+# @app.get("/api/items/<type>")
+# def get_itemVal(type):
+#     filter = {} if type is None else {"type": type}
+#     type = list(db.type.find(filter))
+
+#     response = Response(
+#         response=dumps(type), status=200,  mimetype="application/json")
+#     return response
+
+
 
 # @app.put("/api/sensors/<id>")
 # def update_sensor(id):

@@ -40,6 +40,8 @@ export const ITEM_PROFILE_UPDATE = BASE_URL + '/api/items/profile/update/';
 
 export const GET_FOUND_ITEM_URL = BASE_URL + '/api/items/found';
 
+export const SORT_FOUND_ITEM_URL = BASE_URL + '/api/items/found/status';
+
 export const GET_LOST_ITEM_URL = BASE_URL + '/api/items/lost';
 
 export const GET_FOUND_ITEM_SEARCH_URL = GET_FOUND_ITEM_URL + '/search/';

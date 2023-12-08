@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { IItem } from '../shared/interfaces/IItem';
 import { Item } from '../shared/models/Item';
-import { APPROVE_URL, CHANGE_URL, CLAIM_ITEM_URL, DELETE_ALL_ITEM, DELETE_ITEM, DENY_URL, EDIT_INFO_ITEM, EDIT_INFO_ITEM1, GET_ALL_POSTS, GET_ALL_REQUESTS, GET_FOUND_ITEM_SEARCH_URL, GET_FOUND_ITEM_URL, GET_INFO_ITEM, GET_LOST_ITEM_SEARCH_URL, GET_LOST_ITEM_URL, GET_USER_POSTS, GET_USER_REQUESTS, ITEM_PROFILE_UPDATE, POST_ITEM_URL } from '../shared/constants/urls';
+import { APPROVE_URL, CHANGE_URL, CLAIM_ITEM_URL, DELETE_ALL_ITEM, DELETE_ITEM, DENY_URL, EDIT_INFO_ITEM, EDIT_INFO_ITEM1, GET_ALL_POSTS, GET_ALL_REQUESTS, GET_FOUND_ITEM_SEARCH_URL, GET_FOUND_ITEM_URL, GET_INFO_ITEM, GET_LOST_ITEM_SEARCH_URL, GET_LOST_ITEM_URL, GET_USER_POSTS, GET_USER_REQUESTS, ITEM_PROFILE_UPDATE, POST_ITEM_URL, SORT_FOUND_ITEM_URL } from '../shared/constants/urls';
 import { ToastrService } from 'ngx-toastr';
 import { IItem2 } from '../shared/interfaces/IItem2';
 import { User } from '../shared/models/User';
@@ -19,6 +19,7 @@ export class ItemsService {
     const formData = new FormData();
 
     formData.append('image', image);
+    formData.append('item_type', item.item_type)
     formData.append('poster_id', item.poster_id);
     formData.append('poster_name', item.poster_name);
     formData.append('poster_email', item.poster_email);
@@ -226,6 +227,10 @@ export class ItemsService {
 
   checkVault(): Observable<Item[]> {
     return this.http.get<Item[]>(GET_FOUND_ITEM_URL)
+  }
+
+  getFalseVal(): Observable<Item[]>{
+    return this. http.get<Item[]>(SORT_FOUND_ITEM_URL)
   }
 
 }

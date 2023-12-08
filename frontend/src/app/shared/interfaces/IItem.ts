@@ -1,4 +1,5 @@
 export interface IItem{
+  item_type: string,
   type: boolean;
   name: string;
   characteristic: string;

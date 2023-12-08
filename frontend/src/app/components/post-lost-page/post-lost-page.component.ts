@@ -76,7 +76,7 @@ export class PostLostPageComponent {
     const randomPin = this.generatePin();
 
     const item: IItem = {
-
+      item_type: "lost",
       type: false,
       name: fv.name,
       characteristic: fv.characteristic,
