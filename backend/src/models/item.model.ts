@@ -1,6 +1,7 @@
 import { Schema, model } from 'mongoose';
 
 export interface IItem{
+    item_type: string;
     id: string;
     type: boolean;
     name: string;
@@ -32,6 +33,7 @@ export interface IItem{
 
 export const ItemSchema = new Schema<IItem>(
     {
+        item_type: { type:String, required:true },
         type: { type:Boolean, required:true },
         name: { type:String, required:true },
         img: { type:String, required:true },

@@ -13,13 +13,14 @@ const router = Router();
   router.post("/post", upload.single('image') ,asyncHandler(
     async (req, res) => {
         const result = await cloudinary.uploader.upload(req.file?.path);
-        const {poster_id, poster_name, poster_email, poster_contactinfo, 
+        const { item_type, poster_id, poster_name, poster_email, poster_contactinfo, 
        //   retriever_id, retriever_name, retriever_email, retriever_contactinfo,
           type, name, characteristic, loc, date, more_info, status} = req.body;
 
         const randomPin = Math.floor(1000 + Math.random() * 9000);
 
         const Item: IItem = {
+                item_type,
                 poster_id,
                 poster_name,
                 poster_email,
@@ -53,8 +54,17 @@ const router = Router();
 
   router.get("/found", asyncHandler(
     async (req, res) =>{
-        const items = await ItemModel.find({type: true}).sort({date:-1});
-        res.send(items);                       //sending items from database
+        // const items = await ItemModel.find({status: true}).sort({date:-1});
+        // res.send(items);  //sending items from database
+        const getItem = await ItemModel.find({item_type: "found"}).sort({date:-1});
+        res.send(getItem);  //sending items from database
+    }
+  ))
+
+  router.get("/found/status", asyncHandler(
+    async (req, res) =>{
+        const items = await ItemModel.find({item_type: "found"},{status: false}).sort({date:-1});
+        res.send(items);  //sending items from database
     }
   ))
 
