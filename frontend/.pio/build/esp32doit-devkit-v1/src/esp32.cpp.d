@@ -241,4 +241,13 @@
  C:/Users/Neil\ Melvin\ A.\ Diaz/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-ledc.h \
  .pio/libdeps/esp32doit-devkit-v1/Keypad/src/Keypad.h \
  .pio/libdeps/esp32doit-devkit-v1/Keypad/src/Key.h \
- C:/Users/Neil\ Melvin\ A.\ Diaz/.platformio/packages/framework-arduinoespressif32/cores/esp32/HardwareSerial.h
+ C:/Users/Neil\ Melvin\ A.\ Diaz/.platformio/packages/framework-arduinoespressif32/cores/esp32/HardwareSerial.h \
+ C:/Users/Neil\ Melvin\ A.\ Diaz/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src/Wire.h \
+ C:/Users/Neil\ Melvin\ A.\ Diaz/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal.h \
+ .pio/libdeps/esp32doit-devkit-v1/Adafruit\ GFX\ Library/Adafruit_GFX.h \
+ .pio/libdeps/esp32doit-devkit-v1/Adafruit\ GFX\ Library/gfxfont.h \
+ .pio/libdeps/esp32doit-devkit-v1/Adafruit\ BusIO/Adafruit_I2CDevice.h \
+ .pio/libdeps/esp32doit-devkit-v1/Adafruit\ BusIO/Adafruit_SPIDevice.h \
+ C:/Users/Neil\ Melvin\ A.\ Diaz/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src/SPI.h \
+ C:/Users/Neil\ Melvin\ A.\ Diaz/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-spi.h \
+ .pio/libdeps/esp32doit-devkit-v1/Adafruit\ SSD1306/Adafruit_SSD1306.h

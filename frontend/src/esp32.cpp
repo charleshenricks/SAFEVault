@@ -6,11 +6,34 @@
 #include <ESP32Servo.h>
 #include <Keypad.h>
 #include <HardwareSerial.h>
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
 
 #define LED1 13
 #define LED2 12
-#define vaultServo1 15
+#define vaultServo1 18
 unsigned long startTime = 0;
+
+const int ROWS = 4;
+const int COLS = 4;
+
+#define SCREEN_WIDTH 128 // OLED display width, in pixels
+#define SCREEN_HEIGHT 64 // OLED display height, in pixels
+
+// Declaration for an SSD1306 display connected to I2C (SDA, SCL pins)
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+
+char hexaKeys[ROWS][COLS] = {
+    {'1', '2', '3', 'A'},
+    {'4', '5', '6', 'B'},
+    {'7', '8', '9', 'C'},
+    {'*', '0', '#', 'D'}};
+
+byte rowPins[ROWS] = {19, 25, 26, 14};
+byte colPins[COLS] = {27, 32, 21, 4};
+
+Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
 
 Servo SafeVaultServo;
 
@@ -388,19 +411,21 @@ void OverDriveVault()
     {
       previousMillis = currentMillis;
 
-      Serial.println("---------------");
+      Serial.println("{HI ADMIN DONE FORC OPEN VAULT}");
+
       // Read our configuration for our LED
       LED ledSetup = extractLEDConfiguration("led_1");
-      Serial.println(ledSetup.sensor_id);
-      Serial.println(ledSetup.description);
-      Serial.println(ledSetup.location);
-      Serial.println(ledSetup.enabled);
-      Serial.println(ledSetup.type);
-      Serial.println(ledSetup.status);
+      // Serial.println(ledSetup.sensor_id);
+      // Serial.println(ledSetup.description);
+      // Serial.println(ledSetup.location);
+      // Serial.println(ledSetup.enabled);
+      // Serial.println(ledSetup.type);
+      // Serial.println(ledSetup.status);
       setLEDStatus(convertStatus(ledSetup.status)); // Set LED value
-      Serial.println("---------------");
+      Serial.println("{HI ADMIN DONE FORC OPEN VAULT}");
     }
   }
+  sendOFFSensorStatus("led_1"); // Turn off sensor status after 9 seconds
 }
 
 // if user inputted right values
@@ -443,17 +468,38 @@ void OpenSafeVault()
   sendOFFSensorStatus("led_1"); // Turn off sensor status after 9 seconds
 }
 
+void displayMessageOnOled(String message)
+{
+  display.clearDisplay();
+  display.setTextSize(1);              // Choose the text size
+  display.setTextColor(SSD1306_WHITE); // Choose the text color
+  display.setCursor(0, 0);             // Set cursor to top-left
+  display.println(message);
+  display.display();
+}
+
 int claimItem;
 
 unsigned long previousMillis = 0;
 const long interval = 2000;
 int overdrive_pass = 2345;
+int YouChose = -1;
+int YourPin = 0;
 
 void setup()
 {
 
   SafeVaultServo.attach(vaultServo1);
   Serial.begin(9600);
+
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
+  { // Change 0x3C to your OLED's I2C address
+    Serial.println(F("SSD1306 allocation failed"));
+    for (;;)
+      ;
+  }
+  display.clearDisplay();
+
   for (uint8_t t = 2; t > 0; t--)
   {
     Serial.printf("[SETUP] WAIT %d...\n", t);
@@ -480,6 +526,11 @@ void setup()
 
 void loop()
 {
+
+  static char code[5]; // Array to store the 4-digit code, +1 for null terminator
+  static int codeIndex = 0;
+  char customKey = customKeypad.getKey();
+
   unsigned long currentMillis = millis();
 
   // Check if it's time to update the configuration
@@ -491,23 +542,58 @@ void loop()
     setLEDStatus(convertStatus(ledSetup.status));
   }
 
-  if (Serial.available() > 0)
+  if (customKey)
   {
-    int claimItem = Serial.parseInt();
-    switch (claimItem)
+    if (customKey >= '0' && customKey <= '9')
     {
-    case 1:
-      switch (claimItem)
+      YouChose = customKey - '0';
+      Serial.println("Please Pick an Option ");
+      Serial.print("You chose: ");
+      Serial.println(YouChose);
+
+      switch (YouChose)
       {
       case 1:
       {
-        // sendOFFSensorStatus("led_1");
-        // LED ledSetup = extractLEDConfiguration("led_1");
-        // IItem itemget = extractIItemConfiguration("claim");
-        // setLEDStatus(convertStatus(ledSetup.status)); // Set LED value
-
         Serial.println("Input Pin");
+
+        // Resetting codeIndex and code array for new input
+        codeIndex = 0;
+        memset(code, 0, sizeof(code)); // Clear the code array
+
+        while (codeIndex < 4)
+        { // Wait until 4 digits are entered
+          char customKey1 = customKeypad.getKey();
+
+          if (customKey1 && customKey1 >= '0' && customKey1 <= '9')
+          {
+            code[codeIndex] = customKey1;
+            Serial.print(customKey1); // Display each digit as it's entered
+            codeIndex++;
+            // Update OLED display
+            display.clearDisplay();
+            display.setTextSize(1);              // Choose the text size
+            display.setTextColor(SSD1306_WHITE); // Choose the text color
+            display.setCursor(0, 0);             // Set cursor to top-left
+            display.print("Enter Pin: ");
+            for (int i = 0; i < codeIndex; i++)
+            {
+              display.print(code[i]);
+            }
+            display.display();
+            delay(50); // Short delay to debounce and slow down input for readability
+          }
+        }
+
+        code[codeIndex] = '\0'; // Null terminate the string
+        YourPin = atoi(code);   // Convert string to integer
+        Serial.print("\nYour Pin: ");
+        Serial.println(YourPin);
+
+        // sendOFFSensorStatus("led_1");
+        LED ledSetup = extractLEDConfiguration("led_1");
         IItem itemget = extractIItemConfiguration("claim");
+        // setLEDStatus(convertStatus(ledSetup.status)); // Set LED value
 
         digitalWrite(LED2, HIGH);
         delay(1000);
@@ -515,113 +601,63 @@ void loop()
         delay(1000);
         unsigned long currentMillis = millis();
 
-        while (Serial.available() == 0)
-        {
-        }
+        // int input_password = Serial.parseInt();
 
-        int input_password = Serial.parseInt();
-
-        if (input_password == 2345)
+        if (YourPin == 1111)
         {
+          displayMessageOnOled("[ADMIN PASS]");
           OverDriveVault();
         }
-        else if ((input_password == itemget.pin))
+        else if ((YourPin == itemget.pin))
         {
+          displayMessageOnOled("[USER PASS]\nUpdating Values...");
           sendSensorStatus("led_1");
           sendItemClaimType("claim");
           // Put update on item values
-          Serial.println("You Inputted: ");
-          Serial.print(input_password);
+          Serial.print("You Inputted: ");
+          Serial.println(YourPin);
           Serial.println("Values would be updated");
 
           OpenSafeVault();
         }
         else
         {
+          displayMessageOnOled("[INVALID PASS]\nPlease Enter again");
           sendOFFSensorStatus("led_1");
           Serial.println("Please Enter again");
         }
+        break;
       }
-      break;
       case 2:
-        Serial.println("Vault Resetting");
+        displayMessageOnOled("Vault Resetting");
+        sendOFFSensorStatus("led_1");
+
+        break;
       default:
-        Serial.println("SafeVault: Please choose a valid selection");
+        displayMessageOnOled("SafeVault: Please choose a valid selection");
       }
-      break;
-    case 2:
-      Serial.println("Vault Resetting");
-      break;
-    default:
-      Serial.println("SafeVault: Please choose a valid selection");
     }
   }
 }
 
-// if (currentMillis - previousMillis >= readInterval)
-// {
-//   // save the last time
-//   previousMillis = currentMillis;
-//   Serial.println("---------------");
-//   // Read our configuration for our LED
-//   LED ledSetup = extractLEDConfiguration("led_1");
-//   Serial.println(ledSetup.sensor_id);
-//   Serial.println(ledSetup.description);
-//   Serial.println(ledSetup.location);
-//   Serial.println(ledSetup.enabled);
-//   Serial.println(ledSetup.type);
-//   Serial.println(ledSetup.status);
-//   setLEDStatus(convertStatus(ledSetup.status)); // Set LED value// Set LED value
-//   Serial.println("---------------");
-//   Serial.println("---------------");
-//   IItem itemget = extractIItemConfiguration("claim");
-//   Serial.println(itemget.item_claim);
-//   Serial.println(itemget.item_type);
-//   Serial.println(itemget.pin);
-//   // Serial.println(itemget.loc);
-//   Serial.println("---------------");
-// }
-
-// int temp;
-// int Rh;
-// int pressure;
-
 // void setup() {
-//   Serial.begin(9600);
+//   Serial.begin(115200);
 
-//   Serial.println("1. Temperature");
-//   Serial.println("2. Humidity");
-//   Serial.println("3. Barometric Pressure");
+//   if(!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) { // Address 0x3D for 128x64
+//     Serial.println(F("SSD1306 allocation failed"));
+//     for(;;);
+//   }
+//   delay(2000);
+//   display.clearDisplay();
+
+//   display.setTextSize(1);
+//   display.setTextColor(WHITE);
+//   display.setCursor(0, 10);
+//   // Display static text
+//   display.println("Hello, world!");
+//   display.display();
 // }
 
 // void loop() {
-//   Serial.println("Which sensor would you like to read? ");
 
-//   while (Serial.available() == 0) {
-//   }
-
-//   int menuChoice = Serial.parseInt();
-
-//   switch (menuChoice) {
-//     case 1:
-//       // temp sensor code goes here
-//       Serial.print("The temperature is: ");
-//       Serial.println(temp);
-//       break;
-
-//     case 2:
-//       // humidity sensor code goes here
-//       Serial.print("The humidity is: ");
-//       Serial.println(Rh);
-//       break;
-
-//     case 3:
-//       // pressure sensor code goes here
-//       Serial.print("The barometric pressure is: ");
-//       Serial.println(pressure);
-//       break;
-
-//     default:
-//       Serial.println("Please choose a valid selection");
-//   }
 // }
