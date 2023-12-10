@@ -13,7 +13,7 @@ const router = Router();
   router.post("/post", upload.single('image') ,asyncHandler(
     async (req, res) => {
         const result = await cloudinary.uploader.upload(req.file?.path);
-        const { item_type, poster_id, poster_name, poster_email, poster_contactinfo, 
+        const { item_type, item_claim, poster_id, poster_name, poster_email, poster_contactinfo, 
        //   retriever_id, retriever_name, retriever_email, retriever_contactinfo,
           type, name, characteristic, loc, date, more_info, status} = req.body;
 
@@ -21,6 +21,7 @@ const router = Router();
 
         const Item: IItem = {
                 item_type,
+                item_claim,
                 poster_id,
                 poster_name,
                 poster_email,
@@ -63,7 +64,15 @@ const router = Router();
 
   router.get("/found/status", asyncHandler(
     async (req, res) =>{
-        const items = await ItemModel.find({item_type: "found"},{status: false}).sort({date:-1});
+        const items = await ItemModel.find(
+          {
+            $or: [
+              { item_claim: " " },
+              { item_claim: "claim" }
+              // { returned_id: req.params.id }
+            ]
+          }
+        );
         res.send(items);  //sending items from database
     }
   ))
@@ -251,7 +260,7 @@ const router = Router();
       const {id} = req.body;
       const item = await ItemModel.findOne({_id: id});
       await item!.updateOne({ $set: { "returned_id": item?.retriever_id, "returned_name": item?.retriever_name, "returned_email": item?.retriever_email, "returned_contactinfo": item?.retriever_contactinfo, "returned_date": new Date().toLocaleString('en-PH', { timeZone: 'Asia/Manila' })} });
-      await item!.updateOne({ $set: { "status": true ,"retriever_id": "", "retriever_name": "", "retriever_email": "", "retriever_contactinfo": "", "retriever_date": "" } });
+      await item!.updateOne({ $set: { "status": true , "item_claim": "claim", "retriever_id": "", "retriever_name": "", "retriever_email": "", "retriever_contactinfo": "", "retriever_date": "" } });
       res.send();                    
     }
   ))
