@@ -238,4 +238,7 @@
  .pio/libdeps/esp32doit-devkit-v1/DHT\ sensor\ library/DHT.h \
  .pio/libdeps/esp32doit-devkit-v1/ESP32Servo/src/ESP32Servo.h \
  .pio/libdeps/esp32doit-devkit-v1/ESP32Servo/src/ESP32PWM.h \
- C:/Users/Neil\ Melvin\ A.\ Diaz/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-ledc.h
+ C:/Users/Neil\ Melvin\ A.\ Diaz/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-ledc.h \
+ .pio/libdeps/esp32doit-devkit-v1/Keypad/src/Keypad.h \
+ .pio/libdeps/esp32doit-devkit-v1/Keypad/src/Key.h \
+ C:/Users/Neil\ Melvin\ A.\ Diaz/.platformio/packages/framework-arduinoespressif32/cores/esp32/HardwareSerial.h

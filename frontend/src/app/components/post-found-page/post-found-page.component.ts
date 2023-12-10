@@ -32,7 +32,7 @@ export class PostFoundPageComponent implements OnInit {
   displayTime: string = '00:00';
   isTimerRunning: boolean = false;
   timerInterval: any;
-  totalSeconds: number = 5;
+  totalSeconds: number = 10;
   //end of timer function data
 
 
@@ -88,6 +88,7 @@ export class PostFoundPageComponent implements OnInit {
 
                 const item: IItem = {
                   item_type: "found",
+                  item_claim: " ",
                   type: true,
                   name: fv.name,
                   characteristic: fv.characteristic,
@@ -112,9 +113,9 @@ export class PostFoundPageComponent implements OnInit {
                 });
                 reader.readAsDataURL(this.img);
 
-                this.startTimer();
                 this.userService.LedEdit(led_value).subscribe(
                   sensors => {
+                    this.startTimer();
                     // Handle success
                     console.log('Vault opened.', sensors);
                   },

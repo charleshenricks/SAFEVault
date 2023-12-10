@@ -13,9 +13,9 @@
         <li>Location Lost: {{item.loc}}</li>
         <li>Date Lost: {{item.date| date: 'MM/dd/yyyy'}}</li>
         <li>More Info: {{item.more_info}}</li>
-        <li [attr.status]="item.status" class="status">Status:</li>
+        <!-- <li [attr.status]="item.status" class="status">Status:</li> -->
       </ul>
-      <div *ngIf="!isPoster">
+      <!-- <div *ngIf="!isPoster">
         <h1 >Poster Info</h1>
         <ul *ngIf="accessClaim;else other_content">
           <li>Name: {{item.poster_name}}</li>
@@ -34,8 +34,8 @@
         <ng-template #other_content3>
           <ul>Returning Item in Progress. Can't Return and Show Poster Info at the Moment</ul>
         </ng-template>
-      </div>
-      <div *ngIf="isPoster">
+      </div> -->
+      <!-- <div *ngIf="isPoster">
         <h1>Request Info</h1>
         <ul *ngIf="item.retriever_id;else other_content">
           <li>Name: {{item.retriever_name}}</li>
@@ -46,8 +46,8 @@
         <ng-template #other_content>
           <ul>No Request</ul>
         </ng-template>
-      </div>
-      <div>
+      </div> -->
+      <!-- <div>
         <h1>Finder Info</h1>
         <ul *ngIf="item.status;else other_content4">
           <li>Name: {{item.returned_name}}</li>
@@ -58,7 +58,7 @@
         <ng-template #other_content4>
           <ul>Item Not Yet Found</ul>
         </ng-template>
-      </div>
+      </div> -->
     </div>
     <div class="found">
       <button (click)="isClaimed()" *ngIf="item.status&&!accessOwner&&!isPoster&&!accessClaim; else claim">Request Change</button>

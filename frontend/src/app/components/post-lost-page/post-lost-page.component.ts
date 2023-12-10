@@ -77,13 +77,14 @@ export class PostLostPageComponent {
 
     const item: IItem = {
       item_type: "lost",
+      item_claim: " ",
       type: false,
       name: fv.name,
       characteristic: fv.characteristic,
       loc: fv.loc,
       date: fv.date,
       more_info: fv.more_info,
-      status: false,
+      status: true,
       pin: randomPin,
       poster_id: this.user.id,
       poster_name: this.user.Fullname,

@@ -1,3 +1,4 @@
+import logging
 import os
 from flask import Flask, Response, request, jsonify, make_response
 from dotenv import load_dotenv
@@ -23,43 +24,40 @@ def get_sensors(sensor_id):
         response=dumps(sensors), status=200,  mimetype="application/json")
     return response
 
-# @app.get("/api/sensors/<type>")
-# def get_sensors(type):
-#     filter = {} if type is None else {"type": type}
-#     sensors = list(db.sensors.find(filter))
 
-#     response = Response(
-#         response=dumps(sensors), status=200,  mimetype="application/json")
-#     return response
-
-@app.get("/api/items/<item_type>")
-def get_items(item_type):
-    filter = {} if item_type is None else {"item_type": item_type}
+@app.get("/api/items/<item_claim>")
+def get_items(item_claim):
+    filter = {} if item_claim is None else {"item_claim": item_claim}
     items = list(db.items.find(filter))
 
     response = Response(
         response=dumps(items), status=200,  mimetype="application/json")
     return response
 
-# @app.get("/api/items/<type>")
-# def get_itemVal(type):
-#     filter = {} if type is None else {"type": type}
-#     type = list(db.type.find(filter))
+@app.put("/api/sensors/<sensor_id>")
+def update_sensor(sensor_id):
+    _json = request.json
+    logging.info(f"Received data for sensor_id {sensor_id}: {_json}")
 
-#     response = Response(
-#         response=dumps(type), status=200,  mimetype="application/json")
-#     return response
+    # Update the document where 'sensor_id' matches
+    result = db.sensors.update_one({'sensor_id': sensor_id}, {"$set": _json})
 
+    if result.matched_count == 0:
+        return jsonify({"message": "Sensor not found"}), 404
 
+    resp = jsonify({"message": "Sensor updated successfully"})
+    resp.status_code = 200
+    return resp
 
-# @app.put("/api/sensors/<id>")
-# def update_sensor(id):
-#     _json = request.json
-#     db.sensors.update_one({'_id': ObjectId(id)}, {"$set": _json})
+@app.put("/api/items/<item_claim>")
+def update_item(item_claim):
+    _json = request.json
+    # Update the document where 'item_claim' matches
+    db.items.update_one({'item_claim': item_claim}, {"$set": _json})
 
-#     resp = jsonify({"message": "Sensor updated successfully"})
-#     resp.status_code = 200
-#     return resp
+    resp = jsonify({"message": "Sensor updated successfully"})
+    resp.status_code = 200
+    return resp
 
 @app.errorhandler(400)
 def handle_400_error(error):

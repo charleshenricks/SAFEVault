@@ -1,5 +1,6 @@
 export interface IItem{
   item_type: string,
+  item_claim: string;
   type: boolean;
   name: string;
   characteristic: string;

@@ -20,6 +20,7 @@ export class ItemsService {
 
     formData.append('image', image);
     formData.append('item_type', item.item_type)
+    formData.append('item_claim', item.item_claim)
     formData.append('poster_id', item.poster_id);
     formData.append('poster_name', item.poster_name);
     formData.append('poster_email', item.poster_email);
