@@ -8,7 +8,6 @@ import { ISensor } from 'src/app/shared/interfaces/ISensor';
 import { User } from 'src/app/shared/models/User';
 import { ToastrService } from 'ngx-toastr';
 
-
 class ImageSnippet {
   constructor(public src: string, public file: File) { }
 }
@@ -32,7 +31,7 @@ export class PostFoundPageComponent implements OnInit {
   displayTime: string = '00:00';
   isTimerRunning: boolean = false;
   timerInterval: any;
-  totalSeconds: number = 10;
+  totalSeconds: number = 20;
   //end of timer function data
 
 

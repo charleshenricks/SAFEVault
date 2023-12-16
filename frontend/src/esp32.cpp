@@ -13,6 +13,9 @@
 #define LED1 13
 #define LED2 12
 #define vaultServo1 18
+// #define TRIG_PIN 5
+// #define ECHO_PIN 16
+// #define YellowLED_PIN 35
 unsigned long startTime = 0;
 
 const int ROWS = 4;
@@ -31,7 +34,7 @@ char hexaKeys[ROWS][COLS] = {
     {'*', '0', '#', 'D'}};
 
 byte rowPins[ROWS] = {19, 25, 26, 14};
-byte colPins[COLS] = {27, 32, 21, 4};
+byte colPins[COLS] = {27, 32, 16, 4};
 
 Keypad customKeypad = Keypad(makeKeymap(hexaKeys), rowPins, colPins, ROWS, COLS);
 
@@ -41,16 +44,16 @@ Servo SafeVaultServo;
 const unsigned long duration = 2000; // Duration in milliseconds (30 seconds)
 
 // SSID and Password
-const char *ssid = "ZTE_2.4G_XshuY9";
-const char *password = "PukNTRu3";
+// const char *ssid = "ZTE_2.4G_XshuY9";
+// const char *password = "PukNTRu3";
 // const char *ssid = "RoomSaCute2.4G";
 // const char *password = "123#Colawin#123";
-// const char *ssid = "realme GT NEO 3";
-// const char *password = "05132001";
+const char *ssid = "realme GT NEO 3";
+const char *password = "05132001";
 
 /**** NEED TO CHANGE THIS ACCORDING TO YOUR SETUP *****/
 // The REST API endpoint - Change the IP Address
-const char *base_rest_url = "http://192.168.1.53:5000/";
+const char *base_rest_url = "http://192.168.62.28:5000/";
 // const char *base_rest_url = "http://192.168.1.20:5000/";
 // const char *base_rest_url = "http://192.168.35.69:5000/";
 
@@ -264,7 +267,7 @@ int convertStatus(const char *value)
 {
   if (strcmp(value, "HIGH") == 0)
   {
-    SafeVaultServo.write(180);
+    SafeVaultServo.write(90);
     Serial.println("Setting LED to HIGH");
     return HIGH;
   }
@@ -403,8 +406,8 @@ void OverDriveVault()
   unsigned long startMillis = millis();
   unsigned long currentMillis = startMillis;
   Serial.print("Force open vault");
-  while (millis() - startMillis < 9000)
-  { // 9000 milliseconds = 9 seconds
+  while (millis() - startMillis < 30000)
+  { // 30000 milliseconds = 30 seconds
     currentMillis = millis();
 
     if (currentMillis - previousMillis >= readInterval)
@@ -433,8 +436,8 @@ void OpenSafeVault()
 {
   unsigned long startMillis = millis(); // Start time for the 9-second interval
 
-  while (millis() - startMillis < 9000)
-  { // Check if less than 9 seconds have passed
+  while (millis() - startMillis < 30000)
+  { // Check if less than 30 seconds have passed
     unsigned long currentMillis = millis();
 
     // This block will execute every 2 seconds
@@ -473,10 +476,22 @@ void displayMessageOnOled(String message)
   display.clearDisplay();
   display.setTextSize(1);              // Choose the text size
   display.setTextColor(SSD1306_WHITE); // Choose the text color
-  display.setCursor(0, 0);             // Set cursor to top-left
+
+  int16_t x1, y1;
+  uint16_t w, h;
+
+  // Calculate the bounds of the text to get its width and height
+  display.getTextBounds(message, 0, 0, &x1, &y1, &w, &h);
+
+  // Calculate the x and y position to center the text
+  int16_t x = (display.width() - w) / 2;
+  int16_t y = (display.height() - h) / 2;
+
+  display.setCursor(x, y);             // Set cursor to the calculated position
   display.println(message);
   display.display();
 }
+
 
 int claimItem;
 
@@ -489,8 +504,13 @@ int YourPin = 0;
 void setup()
 {
 
+  
   SafeVaultServo.attach(vaultServo1);
   Serial.begin(9600);
+
+  // pinMode(TRIG_PIN, OUTPUT);
+  // pinMode(ECHO_PIN, INPUT);
+  // pinMode(YellowLED_PIN, OUTPUT);
 
   if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C))
   { // Change 0x3C to your OLED's I2C address
@@ -526,6 +546,25 @@ void setup()
 
 void loop()
 {
+
+  // // Ultrasonic sensor reading and LED control
+  // digitalWrite(TRIG_PIN, LOW);
+  // delayMicroseconds(2);
+  // digitalWrite(TRIG_PIN, HIGH);
+  // delayMicroseconds(10);
+  // digitalWrite(TRIG_PIN, LOW);
+
+  // long duration = pulseIn(ECHO_PIN, HIGH);
+  // int distance = duration * 0.034 / 2; // Convert time to distance
+
+  // // Assuming the threshold distance for an occupied vault is 10 cm
+  // if (distance < 10) {
+  //   // Vault is occupied, turn Yellow LED off
+  //   digitalWrite(YellowLED_PIN, LOW);
+  // } else {
+  //   // Vault is vacant, turn Yellow LED on
+  //   digitalWrite(YellowLED_PIN, HIGH);
+  // }
 
   static char code[5]; // Array to store the 4-digit code, +1 for null terminator
   static int codeIndex = 0;
@@ -575,7 +614,7 @@ void loop()
             display.setTextSize(1);              // Choose the text size
             display.setTextColor(SSD1306_WHITE); // Choose the text color
             display.setCursor(0, 0);             // Set cursor to top-left
-            display.print("Enter Pin: ");
+            displayMessageOnOled("Enter Pin: ");
             for (int i = 0; i < codeIndex; i++)
             {
               display.print(code[i]);
@@ -603,7 +642,7 @@ void loop()
 
         // int input_password = Serial.parseInt();
 
-        if (YourPin == 1111)
+        if (YourPin == 1739)
         {
           displayMessageOnOled("[ADMIN PASS]");
           OverDriveVault();
